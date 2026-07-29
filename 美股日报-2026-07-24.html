@@ -435,29 +435,6 @@
     .score-drivers b { max-width: 66%; text-align: right; }
     .score-badges { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
     .score-badges b, .score-badges span { padding: 3px 8px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px; background: rgba(255,255,255,.10); color: #fff; font-size: 10px; font-weight: 900; }
-    .ai-risk-panel { display: grid; grid-template-columns: 250px 1fr; gap: 14px; margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #f8fbfe; }
-    .ai-risk-summary { display: flex; flex-direction: column; justify-content: center; min-height: 176px; padding: 16px; border-radius: 7px; background: #173b5c; color: #fff; }
-    .ai-risk-summary > span { color: rgba(255,255,255,.72); font-size: 11px; font-weight: 900; }
-    .ai-risk-score { display: flex; align-items: baseline; gap: 4px; margin-top: 7px; }
-    .ai-risk-score strong { font-size: 44px; line-height: 1; }
-    .ai-risk-score small { color: rgba(255,255,255,.72); font-size: 13px; font-weight: 900; }
-    .ai-risk-summary > b { margin-top: 5px; font-size: 19px; }
-    .ai-risk-summary > p { margin: 10px 0 0; color: rgba(255,255,255,.78); font-size: 11px; line-height: 1.55; }
-    .ai-divergence { display: block; width: max-content; max-width: 100%; margin-top: 9px; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.12); color: #fff; font-size: 10px; font-style: normal; font-weight: 900; }
-    .ai-divergence.loss { background: #8f2f2a; }
-    .ai-divergence.gain { background: #087f5b; }
-    .ai-risk-components { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
-    .ai-risk-component { display: flex; flex-direction: column; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: #fff; }
-    .ai-risk-component > div { display: flex; align-items: flex-start; justify-content: space-between; gap: 7px; }
-    .ai-risk-component span { color: var(--navy); font-size: 11px; font-weight: 900; }
-    .ai-risk-component b { color: var(--navy); font-size: 11px; white-space: nowrap; }
-    .ai-risk-component i { display: block; height: 7px; margin-top: 13px; overflow: hidden; border-radius: 999px; background: #e7edf4; }
-    .ai-risk-component i em { display: block; height: 100%; border-radius: inherit; background: #168a72; }
-    .ai-risk-component small { margin-top: 10px; color: var(--muted); font-size: 10px; font-weight: 800; line-height: 1.45; }
-    .ai-risk-panel.ai-risk .ai-risk-summary, .ai-risk-panel.ai-cautious .ai-risk-summary { background: #792421; }
-    .ai-risk-panel.ai-neutral .ai-risk-summary { background: #6f581a; }
-    .ai-risk-panel.ai-constructive .ai-risk-summary { background: #166457; }
-    .ai-risk-panel.ai-optimistic .ai-risk-summary { background: #0b7657; }
     .dashboard-lower, .rank-grid, .winner-loser { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
     .rank-grid { grid-template-columns: 1fr; }
     .sentiment-box { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; }
@@ -503,6 +480,7 @@
     .rotation-arrow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; color: var(--muted); font-size: 9px; font-weight: 900; }
     .rotation-arrow i { color: var(--navy); font-size: 26px; font-style: normal; line-height: 1; }
 
+    .market-signal { margin-top: 14px; padding: 14px 16px; border-left: 4px solid var(--teal); border-radius: 8px; background: #e9f7f4; color: var(--navy); font-weight: 800; }
     .table-label { margin: 0 0 8px; color: #27445f; font-size: 16px; font-weight: 800; }
     .chain-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 12px 0 14px; }
     .chain-card { padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; }
@@ -573,8 +551,7 @@
     .note { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
 
     @media (max-width: 920px) {
-      .summary, .dashboard, .temperature-grid, .dashboard-lower, .signal-grid, .rank-grid, .chain-grid, .winner-loser, .sources, .quality-grid, .ai-risk-panel { grid-template-columns: 1fr; }
-      .ai-risk-components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .summary, .dashboard, .temperature-grid, .dashboard-lower, .signal-grid, .rank-grid, .chain-grid, .winner-loser, .sources, .quality-grid { grid-template-columns: 1fr; }
       .hero-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
@@ -611,6 +588,7 @@
       .rotation-arrow { flex-direction: row; }
       .rotation-arrow i { transform: rotate(90deg); font-size: 22px; }
       .chain-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .market-signal { padding: 13px; font-size: 14px; }
       th, td { padding: 10px 11px; font-size: 13px; }
       th:first-child, td:first-child {
         position: sticky;
@@ -639,113 +617,83 @@
 
   <main class="page">
     <header class="hero">
-      <div class="eyebrow">北京时间 2026 年 07 月 29 日｜美东 07 月 28 日收盘</div>
+      <div class="eyebrow">北京时间 2026 年 07 月 24 日｜美东 07 月 23 日收盘</div>
       <h1>美股日报</h1>
       <p class="subtitle">市场分化，关注利率、油价与 AI 链条强弱</p>
-      <div class="hero-metrics"><div class="hero-metric"><span>道琼斯工业平均指数</span><strong>52,747.32</strong><em class="gain">+1.03%</em></div><div class="hero-metric"><span>标普 500</span><strong>7,428.78</strong><em class="gain">+0.21%</em></div><div class="hero-metric"><span>纳斯达克综合指数</span><strong>24,876.91</strong><em class="loss">-0.22%</em></div><div class="hero-metric"><span>罗素 2000</span><strong>2,953.80</strong><em class="gain">+0.20%</em></div></div>
+      <div class="hero-metrics"><div class="hero-metric"><span>道琼斯工业平均指数</span><strong>51,711.65</strong><em class="loss">-0.97%</em></div><div class="hero-metric"><span>标普 500</span><strong>7,408.30</strong><em class="loss">-1.21%</em></div><div class="hero-metric"><span>纳斯达克综合指数</span><strong>25,137.69</strong><em class="loss">-2.15%</em></div><div class="hero-metric"><span>罗素 2000</span><strong>2,940.16</strong><em class="loss">-0.67%</em></div></div>
     </header>
 
     <section class="section">
       <h2>核心摘要与市场情绪</h2>
-      <p class="lead">今日结论：美股内部呈现分化，医疗保健和必需消费相对占优，能源、信息技术承压；市场主线仍需结合利率、油价和 AI 链条强弱观察。 当前全市场情绪为 67/100（中性偏乐观），AI 风险偏好为 18/100（弱势）；市场强于 AI 49 分｜AI 风险偏好落后。</p>
-      <div class="risk-alert"><strong>异常波动提醒</strong><ul><li>AI 链条出现高波动：AMD（AMD） -8.15%、Micron（MU） -8.85%、SanDisk（SNDK） -14.25%。</li></ul></div>
+      <p class="lead">今日结论：美股内部呈现分化，工业和医疗保健相对占优，通信服务、可选消费承压；市场主线仍需结合利率、油价和 AI 链条强弱观察。</p>
+      <div class="risk-alert"><strong>异常波动提醒</strong><ul><li>VIX 日变动 +12.38%，波动预期快速升温。</li><li>WTI 原油 日变动 +6.15%，需关注通胀与能源板块传导。</li><li>Brent 原油 日变动 +6.77%，需关注通胀与能源板块传导。</li><li>AI 链条出现高波动：Tesla（TSLA） -14.52%。</li></ul></div>
+      <ul class="summary"><li><span class="tag">原因一</span>工业和医疗保健位居板块前列，显示资金并非全面撤退。</li><li><span class="tag">原因二</span>长端利率和美元变化继续影响成长股估值与周期板块风险偏好。</li><li><span class="tag">原因三</span>AI 产业链内部强弱分化，硬件、平台和软件表现需要分层观察。</li></ul>
       
       <div class="dashboard">
         <div class="dashboard-score score-constructive">
           <span>总体风险偏好</span>
-          <div class="risk-ring" aria-label="Market Sentiment Score 67 out of 100; 中性偏乐观">
+          <div class="risk-ring" aria-label="Market Sentiment Score 61 out of 100; 中性偏乐观">
             <span class="risk-ring-band " style="--angle:27.0deg">极端恐慌</span><span class="risk-ring-band " style="--angle:81.0deg">恐慌</span><span class="risk-ring-band " style="--angle:135.0deg">谨慎</span><span class="risk-ring-band " style="--angle:180.0deg">中性</span><span class="risk-ring-band current" style="--angle:225.0deg">中性偏乐观</span><span class="risk-ring-band " style="--angle:279.0deg">乐观</span><span class="risk-ring-band " style="--angle:333.0deg">极度乐观</span>
-            <i class="risk-ring-marker" style="--score-angle:241.2deg" aria-hidden="true"></i>
+            <i class="risk-ring-marker" style="--score-angle:219.6deg" aria-hidden="true"></i>
             <div class="risk-ring-inner">
-              <div class="score-number">67<small>/100</small></div>
+              <div class="score-number">61<small>/100</small></div>
               <div class="gauge-label">Market Sentiment Score</div>
             </div>
           </div>
           <strong>中性偏乐观</strong>
           <div class="score-badges">
-            <b class="loss">较前日 -2</b>
+            <b class="gain">较前日 +7</b>
             <span>Sentiment Model v4</span>
           </div>
           <div class="score-drivers">
             <div><span>主要压力</span><b class="loss">估值与利率</b></div>
-            <div><span>主要支撑</span><b class="gain">医疗保健、必需消费</b></div>
+            <div><span>主要支撑</span><b class="gain">工业、医疗保健</b></div>
           </div>
         </div>
         <div class="temperature-grid"><div class="temperature-card">
               <div class="metric-head"><span>VIX</span><b class="metric-score">22/30</b></div>
-              <b class="metric-value">18.21</b>
+              <b class="metric-value">18.70</b>
               <strong class="metric-rating gain">中性</strong>
-              <em class="metric-sub">日变动 -2.46%</em>
+              <em class="metric-sub">日变动 +12.38%</em>
             </div><div class="temperature-card">
-              <div class="metric-head"><span>Put/Call Ratio</span><b class="metric-score">12/18</b></div>
-              <b class="metric-value">0.96</b>
-              <strong class="metric-rating gain">中性</strong>
-              <em class="metric-sub">Equity PCR 0.71</em>
+              <div class="metric-head"><span>Put/Call Ratio</span><b class="metric-score">16/18</b></div>
+              <b class="metric-value">0.75</b>
+              <strong class="metric-rating gain">乐观</strong>
+              <em class="metric-sub">Equity PCR 0.75</em>
             </div><div class="temperature-card">
-              <div class="metric-head"><span>Market Breadth</span><b class="metric-score">14/18</b></div>
-              <b class="metric-value">偏强</b>
-              <strong class="metric-rating gain">扩散</strong>
-              <em class="metric-sub">上涨 348｜下跌 153</em>
+              <div class="metric-head"><span>Market Breadth</span><b class="metric-score">7/18</b></div>
+              <b class="metric-value">偏弱</b>
+              <strong class="metric-rating gain">分化</strong>
+              <em class="metric-sub">上涨 213｜下跌 290</em>
             </div><div class="temperature-card">
-              <div class="metric-head"><span>SPY / RSP Ratio</span><b class="metric-score">12/12</b></div>
-              <b class="metric-value">3.403x</b>
-              <strong class="metric-rating gain">等权扩散</strong>
-              <em class="metric-sub">20日均值 3.492x｜偏离 -2.55%</em>
+              <div class="metric-head"><span>SPY / RSP Ratio</span><b class="metric-score">11/12</b></div>
+              <b class="metric-value">3.483x</b>
+              <strong class="metric-rating gain">广度改善</strong>
+              <em class="metric-sub">20日均值 3.498x｜偏离 -0.42%</em>
             </div><div class="temperature-card">
               <div class="metric-head"><span>US10Y</span><b class="metric-score">5/16</b></div>
-              <b class="metric-value">4.60%</b>
+              <b class="metric-value">4.70%</b>
               <strong class="metric-rating gain">偏高</strong>
-              <em class="metric-sub">-4 BP</em>
+              <em class="metric-sub">+5 BP</em>
             </div><div class="temperature-card">
-              <div class="metric-head"><span>Sector Rotation</span><b class="metric-score">2/6</b></div>
-              <b class="metric-value">医疗保健+必需消费</b>
-              <strong class="metric-rating gain">偏防御</strong>
-              <em class="metric-sub">进攻-防御 -0.43 pct</em>
-            </div></div>
-      </div>
-      
-      <div class="ai-risk-panel ai-risk">
-        <div class="ai-risk-summary">
-          <span>AI Risk Appetite Score</span>
-          <div class="ai-risk-score"><strong>18</strong><small>/100</small></div>
-          <b>弱势</b>
-          <em class="ai-divergence loss">市场强于 AI 49 分｜AI 风险偏好落后</em>
-          <p>AI 样本周涨跌中位数 -2.75%，月涨跌中位数 -18.14%；上涨广度日/周/月分别为 5/17、5/17、4/17。</p>
-        </div>
-        <div class="ai-risk-components"><div class="ai-risk-component">
-              <div><span>AI 上涨广度</span><b>8/30</b></div>
-              <i><em style="width:26.7%"></em></i>
-              <small>日 5/17｜周 5/17｜月 4/17</small>
-            </div><div class="ai-risk-component">
-              <div><span>相对标普强弱</span><b>0/20</b></div>
-              <i><em style="width:0.0%"></em></i>
-              <small>多周期超额 -6.94 pct</small>
-            </div><div class="ai-risk-component">
-              <div><span>周度趋势</span><b>7/20</b></div>
-              <i><em style="width:35.0%"></em></i>
-              <small>周涨跌中位数 -2.75%</small>
-            </div><div class="ai-risk-component">
-              <div><span>AI 硬件趋势</span><b>0/15</b></div>
-              <i><em style="width:0.0%"></em></i>
-              <small>周/月综合 -19.31%</small>
-            </div><div class="ai-risk-component">
-              <div><span>产业链扩散</span><b>3/15</b></div>
-              <i><em style="width:20.0%"></em></i>
-              <small>走强环节 1/6</small>
+              <div class="metric-head"><span>Sector Rotation</span><b class="metric-score">0/6</b></div>
+              <b class="metric-value">工业+医疗保健</b>
+              <strong class="metric-rating neutral">极端防御</strong>
+              <em class="metric-sub">进攻-防御 -1.55 pct</em>
             </div></div>
       </div>
       <div class="dashboard-lower">
         <div class="sentiment-box trend-box">
           
-      <div class="trend-head"><span>情绪分数趋势</span><b class="loss">-2</b></div>
+      <div class="trend-head"><span>情绪分数趋势</span><b class="gain">+7</b></div>
       <div class="sentiment-sparkline">
         <svg viewBox="0 0 280 72" role="img" aria-label="Market Sentiment Score history">
           <rect x="8" y="55.6" width="264" height="8.4" class="risk-zone zone-extreme"></rect><rect x="8" y="47.2" width="264" height="8.4" class="risk-zone zone-panic"></rect><rect x="8" y="38.8" width="264" height="8.4" class="risk-zone zone-cautious"></rect><rect x="8" y="33.2" width="264" height="5.6" class="risk-zone zone-neutral"></rect><rect x="8" y="24.8" width="264" height="8.4" class="risk-zone zone-constructive"></rect><rect x="8" y="16.4" width="264" height="8.4" class="risk-zone zone-optimistic"></rect><rect x="8" y="8.0" width="264" height="8.4" class="risk-zone zone-euphoric"></rect>
           <line x1="8" y1="47.2" x2="272" y2="47.2" class="spark-guide"></line><line x1="8" y1="38.8" x2="272" y2="38.8" class="spark-guide"></line><line x1="8" y1="33.2" x2="272" y2="33.2" class="spark-guide"></line><line x1="8" y1="24.8" x2="272" y2="24.8" class="spark-guide"></line><line x1="8" y1="16.4" x2="272" y2="16.4" class="spark-guide"></line>
-          <polyline points="8.0,27.6 21.9,23.1 35.8,20.3 49.7,23.7 63.6,29.8 77.5,35.4 91.4,25.9 105.3,24.2 119.2,29.3 133.1,32.1 146.9,29.3 160.8,25.9 174.7,33.8 188.6,32.1 202.5,30.4 216.4,33.8 230.3,29.8 244.2,24.2 258.1,25.4 272.0,26.5"></polyline>
-          <circle class="recalculated" cx="8.0" cy="27.6" r="3.0"><title>2026-06-30｜65/100｜中性偏乐观</title></circle><circle class="recalculated" cx="21.9" cy="23.1" r="3.0"><title>2026-07-01｜73/100｜乐观</title></circle><circle class="recalculated" cx="35.8" cy="20.3" r="3.0"><title>2026-07-02｜78/100｜乐观</title></circle><circle class="recalculated" cx="49.7" cy="23.7" r="3.0"><title>2026-07-06｜72/100｜乐观</title></circle><circle class="recalculated" cx="63.6" cy="29.8" r="3.0"><title>2026-07-07｜61/100｜中性偏乐观</title></circle><circle class="recalculated" cx="77.5" cy="35.4" r="3.0"><title>2026-07-08｜51/100｜中性</title></circle><circle class="recalculated" cx="91.4" cy="25.9" r="3.0"><title>2026-07-09｜68/100｜中性偏乐观</title></circle><circle class="recalculated" cx="105.3" cy="24.2" r="3.0"><title>2026-07-10｜71/100｜乐观</title></circle><circle class="recalculated" cx="119.2" cy="29.3" r="3.0"><title>2026-07-13｜62/100｜中性偏乐观</title></circle><circle class="recalculated" cx="133.1" cy="32.1" r="3.0"><title>2026-07-14｜57/100｜中性偏乐观</title></circle><circle class="recalculated" cx="146.9" cy="29.3" r="3.0"><title>2026-07-15｜62/100｜中性偏乐观</title></circle><circle cx="160.8" cy="25.9" r="3.0"><title>2026-07-16｜68/100｜中性偏乐观</title></circle><circle cx="174.7" cy="33.8" r="3.0"><title>2026-07-17｜54/100｜中性</title></circle><circle cx="188.6" cy="32.1" r="3.0"><title>2026-07-20｜57/100｜中性偏乐观</title></circle><circle cx="202.5" cy="30.4" r="3.0"><title>2026-07-21｜60/100｜中性偏乐观</title></circle><circle cx="216.4" cy="33.8" r="3.0"><title>2026-07-22｜54/100｜中性</title></circle><circle cx="230.3" cy="29.8" r="3.0"><title>2026-07-23｜61/100｜中性偏乐观</title></circle><circle cx="244.2" cy="24.2" r="3.0"><title>2026-07-24｜71/100｜乐观</title></circle><circle cx="258.1" cy="25.4" r="3.0"><title>2026-07-27｜69/100｜中性偏乐观</title></circle><circle class="current" cx="272.0" cy="26.5" r="4.8"><title>2026-07-28｜67/100｜中性偏乐观</title></circle>
+          <polyline points="8.0,22.6 21.9,28.2 35.8,23.7 49.7,27.6 63.6,23.1 77.5,20.3 91.4,23.7 105.3,29.8 119.2,35.4 133.1,25.9 146.9,24.2 160.8,29.3 174.7,32.1 188.6,29.3 202.5,25.9 216.4,33.8 230.3,32.1 244.2,30.4 258.1,33.8 272.0,29.8"></polyline>
+          <circle class="recalculated" cx="8.0" cy="22.6" r="3.0"><title>2026-06-25｜74/100｜乐观</title></circle><circle class="recalculated" cx="21.9" cy="28.2" r="3.0"><title>2026-06-26｜64/100｜中性偏乐观</title></circle><circle class="recalculated" cx="35.8" cy="23.7" r="3.0"><title>2026-06-29｜72/100｜乐观</title></circle><circle class="recalculated" cx="49.7" cy="27.6" r="3.0"><title>2026-06-30｜65/100｜中性偏乐观</title></circle><circle class="recalculated" cx="63.6" cy="23.1" r="3.0"><title>2026-07-01｜73/100｜乐观</title></circle><circle class="recalculated" cx="77.5" cy="20.3" r="3.0"><title>2026-07-02｜78/100｜乐观</title></circle><circle class="recalculated" cx="91.4" cy="23.7" r="3.0"><title>2026-07-06｜72/100｜乐观</title></circle><circle class="recalculated" cx="105.3" cy="29.8" r="3.0"><title>2026-07-07｜61/100｜中性偏乐观</title></circle><circle class="recalculated" cx="119.2" cy="35.4" r="3.0"><title>2026-07-08｜51/100｜中性</title></circle><circle class="recalculated" cx="133.1" cy="25.9" r="3.0"><title>2026-07-09｜68/100｜中性偏乐观</title></circle><circle class="recalculated" cx="146.9" cy="24.2" r="3.0"><title>2026-07-10｜71/100｜乐观</title></circle><circle class="recalculated" cx="160.8" cy="29.3" r="3.0"><title>2026-07-13｜62/100｜中性偏乐观</title></circle><circle class="recalculated" cx="174.7" cy="32.1" r="3.0"><title>2026-07-14｜57/100｜中性偏乐观</title></circle><circle class="recalculated" cx="188.6" cy="29.3" r="3.0"><title>2026-07-15｜62/100｜中性偏乐观</title></circle><circle cx="202.5" cy="25.9" r="3.0"><title>2026-07-16｜68/100｜中性偏乐观</title></circle><circle cx="216.4" cy="33.8" r="3.0"><title>2026-07-17｜54/100｜中性</title></circle><circle cx="230.3" cy="32.1" r="3.0"><title>2026-07-20｜57/100｜中性偏乐观</title></circle><circle cx="244.2" cy="30.4" r="3.0"><title>2026-07-21｜60/100｜中性偏乐观</title></circle><circle cx="258.1" cy="33.8" r="3.0"><title>2026-07-22｜54/100｜中性</title></circle><circle class="current" cx="272.0" cy="29.8" r="4.8"><title>2026-07-23｜61/100｜中性偏乐观</title></circle>
         </svg>
-        <div><span>06-30</span><small>20 个历史点｜历史行情按 v4 回算</small><span>07-28</span></div>
+        <div><span>06-25</span><small>20 个历史点｜历史行情按 v4 回算</small><span>07-23</span></div>
         <p class="trend-note">悬停数据点查看日期与评级；历史市场宽度使用当前成分股清单回算，存在轻微幸存者偏差。</p>
       </div>
         </div>
@@ -758,39 +706,40 @@
         <div class="rotation-side rotation-strong">
           <b>相对强势</b>
           <div class="rotation-item">
+              <span><b>工业</b><small>XLI</small></span>
+              <strong class="gain">+1.73%</strong>
+            </div><div class="rotation-item">
               <span><b>医疗保健</b><small>XLV</small></span>
-              <strong class="gain">+2.36%</strong>
+              <strong class="gain">+1.26%</strong>
             </div><div class="rotation-item">
-              <span><b>必需消费</b><small>XLP</small></span>
-              <strong class="gain">+1.99%</strong>
-            </div><div class="rotation-item">
-              <span><b>通信服务</b><small>XLC</small></span>
-              <strong class="gain">+1.87%</strong>
+              <span><b>公用事业</b><small>XLU</small></span>
+              <strong class="gain">+0.57%</strong>
             </div>
         </div>
         <div class="rotation-arrow" aria-hidden="true"><span>强</span><i>→</i><span>弱</span></div>
         <div class="rotation-side rotation-weak">
           <b>相对弱势</b>
           <div class="rotation-item">
-              <span><b>信息技术</b><small>XLK</small></span>
-              <strong class="loss">-1.84%</strong>
+              <span><b>可选消费</b><small>XLY</small></span>
+              <strong class="loss">-4.61%</strong>
             </div><div class="rotation-item">
-              <span><b>能源</b><small>XLE</small></span>
-              <strong class="loss">-1.35%</strong>
+              <span><b>通信服务</b><small>XLC</small></span>
+              <strong class="loss">-3.50%</strong>
             </div><div class="rotation-item">
-              <span><b>工业</b><small>XLI</small></span>
-              <strong class="loss">-0.39%</strong>
+              <span><b>必需消费</b><small>XLP</small></span>
+              <strong class="loss">-1.39%</strong>
             </div>
         </div>
       </div></div>
       </div>
+      <div class="market-signal">判断：Market Sentiment Score 为 61/100，处于中性偏乐观区间；当前更适合按结构轮动理解市场，而不是简单判断为全面风险出清。</div>
     
     </section>
 
     <section class="section">
       <h2>市场概览</h2>
       <h3>指数</h3>
-      <div class="table-wrap compact"><table><thead><tr><th>资产</th><th class="num">07 月 28 日收盘</th><th class="num">日表现</th><th class="num">周</th><th class="num">月</th></tr></thead><tbody><tr><td>道琼斯工业平均指数</td><td class="num">52,747.32</td><td class="num gain">+1.03%</td><td class="num gain">+2.00%</td><td class="num gain">+0.82%</td></tr><tr><td>标普 500</td><td class="num">7,428.78</td><td class="num gain">+0.21%</td><td class="num gain">+0.28%</td><td class="num loss">-0.94%</td></tr><tr><td>纳斯达克综合指数</td><td class="num">24,876.91</td><td class="num loss">-0.22%</td><td class="num loss">-1.04%</td><td class="num loss">-5.10%</td></tr><tr><td>罗素 2000</td><td class="num">2,953.80</td><td class="num gain">+0.20%</td><td class="num gain">+0.46%</td><td class="num loss">-2.33%</td></tr><tr><td>NOBL（标普 500 股息贵族 ETF）</td><td class="num">58.43</td><td class="num gain">+1.67%</td><td class="num gain">+2.67%</td><td class="num gain">+4.04%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <div class="table-wrap compact"><table><thead><tr><th>资产</th><th class="num">07 月 23 日收盘</th><th class="num">日表现</th><th class="num">周</th><th class="num">月</th></tr></thead><tbody><tr><td>道琼斯工业平均指数</td><td class="num">51,711.65</td><td class="num loss">-0.97%</td><td class="num loss">-0.83%</td><td class="num loss">-1.16%</td></tr><tr><td>标普 500</td><td class="num">7,408.30</td><td class="num loss">-1.21%</td><td class="num loss">-0.66%</td><td class="num loss">-1.21%</td></tr><tr><td>纳斯达克综合指数</td><td class="num">25,137.69</td><td class="num loss">-2.15%</td><td class="num loss">-1.50%</td><td class="num loss">-4.10%</td></tr><tr><td>罗素 2000</td><td class="num">2,940.16</td><td class="num loss">-0.67%</td><td class="num loss">-0.74%</td><td class="num loss">-2.78%</td></tr><tr><td>NOBL（标普 500 股息贵族 ETF）</td><td class="num">56.27</td><td class="num loss">-0.25%</td><td class="num loss">-1.16%</td><td class="num gain">+0.20%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
       <div class="period-chart" role="img" aria-label="主要指数年内表现横向柱状图">
       <div class="period-chart-head">
         <h3>主要指数年度表现</h3>
@@ -799,228 +748,216 @@
       <div class="period-bars"><div class="period-bar-row">
               <div class="period-bar-label">道琼斯工业平均指数</div>
               <div class="period-bar-track" style="--zero:0.00%">
-                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:51.29%"></span>
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:41.12%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+9.75%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+7.59%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">标普 500</div>
               <div class="period-bar-track" style="--zero:0.00%">
-                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:44.82%"></span>
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:44.53%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+8.52%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+8.22%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">纳斯达克综合指数</div>
               <div class="period-bar-track" style="--zero:0.00%">
-                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:36.98%"></span>
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:44.20%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+7.03%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+8.16%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">罗素 2000</div>
               <div class="period-bar-track" style="--zero:0.00%">
                 <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:100.00%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+19.01%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+18.46%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">NOBL（标普 500 股息贵族 ETF）</div>
               <div class="period-bar-track" style="--zero:0.00%">
-                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:64.65%"></span>
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:44.10%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+12.29%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+8.14%</strong></div>
             </div></div>
     </div>
       <h3>标普 500 11 个板块行情</h3>
-      <div class="table-wrap wide"><table><thead><tr><th class="num">排名</th><th>板块</th><th>ETF</th><th class="num">日</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td class="num">1</td><td>医疗保健</td><td>XLV</td><td class="num gain">+2.36%</td><td class="num gain">+2.88%</td><td class="num gain">+5.42%</td><td class="num gain">+8.05%</td></tr><tr><td class="num">2</td><td>必需消费</td><td>XLP</td><td class="num gain">+1.99%</td><td class="num gain">+3.48%</td><td class="num gain">+4.80%</td><td class="num gain">+12.08%</td></tr><tr><td class="num">3</td><td>通信服务</td><td>XLC</td><td class="num gain">+1.87%</td><td class="num gain">+3.17%</td><td class="num gain">+2.37%</td><td class="num loss">-6.84%</td></tr><tr><td class="num">4</td><td>材料</td><td>XLB</td><td class="num gain">+1.85%</td><td class="num gain">+2.11%</td><td class="num gain">+2.97%</td><td class="num gain">+15.41%</td></tr><tr><td class="num">5</td><td>可选消费</td><td>XLY</td><td class="num gain">+1.48%</td><td class="num gain">+2.81%</td><td class="num loss">-4.09%</td><td class="num loss">-5.80%</td></tr><tr><td class="num">6</td><td>金融</td><td>XLF</td><td class="num gain">+1.27%</td><td class="num gain">+2.29%</td><td class="num gain">+7.44%</td><td class="num gain">+5.17%</td></tr><tr><td class="num">7</td><td>房地产</td><td>XLRE</td><td class="num gain">+0.55%</td><td class="num gain">+0.13%</td><td class="num gain">+4.50%</td><td class="num gain">+14.03%</td></tr><tr><td class="num">8</td><td>公用事业</td><td>XLU</td><td class="num loss">-0.35%</td><td class="num loss">-1.66%</td><td class="num gain">+0.40%</td><td class="num gain">+6.63%</td></tr><tr><td class="num">9</td><td>工业</td><td>XLI</td><td class="num loss">-0.39%</td><td class="num loss">-0.09%</td><td class="num loss">-1.48%</td><td class="num gain">+17.64%</td></tr><tr><td class="num">10</td><td>能源</td><td>XLE</td><td class="num loss">-1.35%</td><td class="num loss">-3.44%</td><td class="num gain">+8.40%</td><td class="num gain">+28.76%</td></tr><tr><td class="num">11</td><td>信息技术</td><td>XLK</td><td class="num loss">-1.84%</td><td class="num loss">-2.72%</td><td class="num loss">-10.20%</td><td class="num gain">+18.84%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <div class="table-wrap wide"><table><thead><tr><th class="num">排名</th><th>板块</th><th>ETF</th><th class="num">日</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td class="num">1</td><td>工业</td><td>XLI</td><td class="num gain">+1.73%</td><td class="num gain">+1.41%</td><td class="num loss">-1.78%</td><td class="num gain">+17.29%</td></tr><tr><td class="num">2</td><td>医疗保健</td><td>XLV</td><td class="num gain">+1.26%</td><td class="num gain">+0.22%</td><td class="num gain">+1.75%</td><td class="num gain">+4.29%</td></tr><tr><td class="num">3</td><td>公用事业</td><td>XLU</td><td class="num gain">+0.57%</td><td class="num gain">+2.26%</td><td class="num gain">+1.87%</td><td class="num gain">+8.20%</td></tr><tr><td class="num">4</td><td>能源</td><td>XLE</td><td class="num gain">+0.30%</td><td class="num gain">+2.95%</td><td class="num gain">+11.81%</td><td class="num gain">+32.81%</td></tr><tr><td class="num">5</td><td>房地产</td><td>XLRE</td><td class="num loss">-0.13%</td><td class="num loss">-1.03%</td><td class="num gain">+2.09%</td><td class="num gain">+11.40%</td></tr><tr><td class="num">6</td><td>金融</td><td>XLF</td><td class="num loss">-0.39%</td><td class="num loss">-0.76%</td><td class="num gain">+4.14%</td><td class="num gain">+1.94%</td></tr><tr><td class="num">7</td><td>信息技术</td><td>XLK</td><td class="num loss">-1.01%</td><td class="num gain">+1.63%</td><td class="num loss">-6.34%</td><td class="num gain">+23.95%</td></tr><tr><td class="num">8</td><td>材料</td><td>XLB</td><td class="num loss">-1.04%</td><td class="num loss">-0.47%</td><td class="num loss">-1.06%</td><td class="num gain">+10.89%</td></tr><tr><td class="num">9</td><td>必需消费</td><td>XLP</td><td class="num loss">-1.39%</td><td class="num loss">-2.32%</td><td class="num gain">+0.17%</td><td class="num gain">+7.12%</td></tr><tr><td class="num">10</td><td>通信服务</td><td>XLC</td><td class="num loss">-3.50%</td><td class="num loss">-4.76%</td><td class="num loss">-1.63%</td><td class="num loss">-10.48%</td></tr><tr><td class="num">11</td><td>可选消费</td><td>XLY</td><td class="num loss">-4.61%</td><td class="num loss">-5.79%</td><td class="num loss">-7.26%</td><td class="num loss">-8.92%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
       <div class="period-chart sector-ytd-chart" role="img" aria-label="标普 500 十一个板块年度表现横向柱状图">
       <div class="period-chart-head">
         <h3>标普 500 11 个板块年度表现</h3>
         <div class="period-chart-legend"><span class="legend-ytd">年初至今（YTD）</span></div>
       </div>
       <div class="period-bars"><div class="period-bar-row">
+              <div class="period-bar-label">工业 <span class="sector-bar-ticker">XLI</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:39.94%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+17.29%</strong></div>
+            </div><div class="period-bar-row">
               <div class="period-bar-label">医疗保健 <span class="sector-bar-ticker">XLV</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:22.61%"></span>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:9.91%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+8.05%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">必需消费 <span class="sector-bar-ticker">XLP</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:33.93%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+12.08%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">通信服务 <span class="sector-bar-ticker">XLC</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:19.21%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="loss">-6.84%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">材料 <span class="sector-bar-ticker">XLB</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:43.29%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+15.41%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">可选消费 <span class="sector-bar-ticker">XLY</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd loss" style="--start:2.92%;--width:16.29%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="loss">-5.80%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">金融 <span class="sector-bar-ticker">XLF</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:14.52%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+5.17%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">房地产 <span class="sector-bar-ticker">XLRE</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:39.41%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+14.03%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+4.29%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">公用事业 <span class="sector-bar-ticker">XLU</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:18.62%"></span>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:18.94%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+6.63%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">工业 <span class="sector-bar-ticker">XLI</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:49.55%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+17.64%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+8.20%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">能源 <span class="sector-bar-ticker">XLE</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:80.79%"></span>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:75.79%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+28.76%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+32.81%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">房地产 <span class="sector-bar-ticker">XLRE</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:26.33%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+11.40%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">金融 <span class="sector-bar-ticker">XLF</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:4.48%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+1.94%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">信息技术 <span class="sector-bar-ticker">XLK</span></div>
-              <div class="period-bar-track" style="--zero:19.21%">
-                <span class="period-bar-fill series-ytd gain" style="--start:19.21%;--width:52.92%"></span>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:55.32%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+18.84%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+23.95%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">材料 <span class="sector-bar-ticker">XLB</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:25.16%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+10.89%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">必需消费 <span class="sector-bar-ticker">XLP</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.21%;--width:16.45%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+7.12%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">通信服务 <span class="sector-bar-ticker">XLC</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:24.21%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-10.48%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">可选消费 <span class="sector-bar-ticker">XLY</span></div>
+              <div class="period-bar-track" style="--zero:24.21%">
+                <span class="period-bar-fill series-ytd loss" style="--start:3.60%;--width:20.61%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-8.92%</strong></div>
             </div></div>
     </div>
       <p class="note">注：板块涨跌幅采用 Select Sector SPDR ETF 作为标普 500 行业板块代理，ETF 代理口径与标普 500 GICS 行业指数可能存在细微差异。</p>
       <h3>AI 产业链代表股票表现</h3>
-      <div class="chain-grid"><div class="chain-card"><span>GPU</span><strong class="loss">偏弱</strong></div><div class="chain-card"><span>Memory</span><strong class="loss">偏弱</strong></div><div class="chain-card"><span>Optical</span><strong class="loss">偏弱</strong></div><div class="chain-card"><span>AI CapEx</span><strong class="gain">修复</strong></div><div class="chain-card"><span>AI Software</span><strong class="loss">偏弱</strong></div></div>
-      <div class="table-wrap wide"><table><thead><tr><th>环节</th><th>代表股票</th><th class="num">07 月 28 日收盘</th><th class="num">日表现</th><th class="num">周</th><th class="num">月</th><th class="num">年</th><th>解读</th></tr></thead><tbody><tr><td>AI CapEx</td><td>Alphabet（GOOGL）<span class="mega-tag">美股七巨头</span></td><td class="num">333.71</td><td class="num gain">+2.19%</td><td class="num gain">+4.37%</td><td class="num loss">-6.62%</td><td class="num gain">+6.62%</td><td>搜索与云平台核心资本开支方，关注 AI 投入回报</td></tr><tr><td>AI CapEx</td><td>Amazon（AMZN）<span class="mega-tag">美股七巨头</span></td><td class="num">230.86</td><td class="num loss">-0.23%</td><td class="num loss">-0.54%</td><td class="num loss">-3.14%</td><td class="num gain">+0.02%</td><td>AWS 与数据中心资本开支代表，体现 AI 基建投入预期</td></tr><tr><td>AI CapEx</td><td>Meta（META）<span class="mega-tag">美股七巨头</span></td><td class="num">593.41</td><td class="num loss">-0.08%</td><td class="num loss">-0.30%</td><td class="num gain">+5.35%</td><td class="num loss">-10.10%</td><td>AI 基础设施与算力投入代表，资本开支影响估值</td></tr><tr><td>AI CapEx</td><td>Microsoft（MSFT）<span class="mega-tag">美股七巨头</span></td><td class="num">393.35</td><td class="num gain">+1.09%</td><td class="num gain">+3.05%</td><td class="num gain">+5.45%</td><td class="num loss">-18.67%</td><td>云与 AI 数据中心资本开支核心权重，影响大型科技定价</td></tr><tr><td>AI S CapEx</td><td>Tesla（TSLA）<span class="mega-tag">美股七巨头</span></td><td class="num">307.44</td><td class="num loss">-0.58%</td><td class="num loss">-1.79%</td><td class="num loss">-26.90%</td><td class="num loss">-31.64%</td><td>自动驾驶、机器人及算力投入代表，资本开支与兑现节奏并重</td></tr><tr><td>AI S CapEx</td><td>Oracle（ORCL）</td><td class="num">119.96</td><td class="num gain">+0.05%</td><td class="num gain">+4.32%</td><td class="num loss">-18.14%</td><td class="num loss">-38.45%</td><td>云基础设施与 AI 数据中心资本开支代表，关注订单与扩容节奏</td></tr><tr><td>AI 芯片</td><td>NVIDIA（NVDA）<span class="mega-tag">美股七巨头</span></td><td class="num">197.01</td><td class="num gain">+0.25%</td><td class="num loss">-4.75%</td><td class="num loss">-1.54%</td><td class="num gain">+5.64%</td><td>核心算力龙头决定 AI 硬件情绪</td></tr><tr><td>AI 芯片</td><td>AMD（AMD）</td><td class="num">454.62</td><td class="num loss volatile">-8.15%</td><td class="num loss">-12.90%</td><td class="num loss">-21.74%</td><td class="num gain">+112.28%</td><td>高弹性芯片股反映 AI 交易风险偏好</td></tr><tr><td>芯片</td><td>Intel（INTC）</td><td class="num">86.30</td><td class="num loss volatile">-5.86%</td><td class="num loss">-6.52%</td><td class="num loss">-38.19%</td><td class="num gain">+133.88%</td><td>CPU、晶圆制造与 AI 加速芯片代表，关注产品兑现和代工进展</td></tr><tr><td>晶圆代工</td><td>台积电 ADR（TSM）</td><td class="num">392.31</td><td class="num loss">-1.70%</td><td class="num loss">-2.75%</td><td class="num loss">-17.85%</td><td class="num gain">+29.10%</td><td>代工链跟随半导体景气预期波动</td></tr><tr><td>存储</td><td>Micron（MU）</td><td class="num">820.53</td><td class="num loss volatile">-8.85%</td><td class="num loss">-10.90%</td><td class="num loss">-28.91%</td><td class="num gain">+187.49%</td><td>存储链对 AI 服务器需求和周期位置敏感</td></tr><tr><td>存储</td><td>SanDisk（SNDK）</td><td class="num">1,096.10</td><td class="num loss volatile">-14.25%</td><td class="num loss">-23.70%</td><td class="num loss">-51.79%</td><td class="num gain">+361.75%</td><td>高弹性存储标的，波动通常高于大盘</td></tr><tr><td>存储</td><td>SK hynix ADR（SKHY）</td><td class="num">130.17</td><td class="num loss volatile">-8.98%</td><td class="num loss">-15.79%</td><td class="num loss">-22.52%</td><td class="num loss">-22.52%</td><td>HBM 与高端存储代表，跟随 AI 内存链景气波动</td></tr><tr><td>光模块/光通信</td><td>Coherent（COHR）</td><td class="num">243.33</td><td class="num loss volatile">-10.31%</td><td class="num loss">-13.83%</td><td class="num loss">-38.31%</td><td class="num gain">+31.84%</td><td>光通信链反映 AI 数据中心互联需求</td></tr><tr><td>光模块/光通信</td><td>Lumentum（LITE）</td><td class="num">651.93</td><td class="num loss volatile">-8.43%</td><td class="num loss">-14.56%</td><td class="num loss">-24.02%</td><td class="num gain">+76.87%</td><td>光器件方向跟随 AI 硬件情绪波动</td></tr><tr><td>AI 应用/软件</td><td>Palantir（PLTR）</td><td class="num">123.53</td><td class="num loss volatile">-6.08%</td><td class="num gain">+0.50%</td><td class="num gain">+5.88%</td><td class="num loss">-30.50%</td><td>AI 软件代表，短线受估值和获利盘影响</td></tr><tr><td>AI 应用/软件</td><td>Apple（AAPL）<span class="mega-tag">美股七巨头</span></td><td class="num">340.08</td><td class="num gain">+0.94%</td><td class="num gain">+2.12%</td><td class="num gain">+17.53%</td><td class="num gain">+25.09%</td><td>端侧 AI 与消费电子代表，纳入应用层观察</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <div class="chain-grid"><div class="chain-card"><span>GPU</span><strong class="loss">偏弱</strong></div><div class="chain-card"><span>Memory</span><strong class="gain">强</strong></div><div class="chain-card"><span>Optical</span><strong class="gain">修复</strong></div><div class="chain-card"><span>Cloud Platform</span><strong class="loss">偏弱</strong></div><div class="chain-card"><span>AI Software</span><strong class="loss">偏弱</strong></div></div>
+      <div class="table-wrap wide"><table><thead><tr><th>环节</th><th>代表股票</th><th class="num">07 月 23 日收盘</th><th class="num">日表现</th><th class="num">周</th><th class="num">月</th><th class="num">年</th><th>解读</th></tr></thead><tbody><tr><td>AI 芯片</td><td>NVIDIA（NVDA）<span class="mega-tag">美股七巨头</span></td><td class="num">208.76</td><td class="num loss">-1.56%</td><td class="num gain">+2.93%</td><td class="num gain">+4.33%</td><td class="num gain">+11.94%</td><td>核心算力龙头决定 AI 硬件情绪</td></tr><tr><td>AI 芯片</td><td>AMD（AMD）</td><td class="num">539.69</td><td class="num loss">-2.29%</td><td class="num gain">+8.86%</td><td class="num loss">-7.10%</td><td class="num gain">+152.00%</td><td>高弹性芯片股反映 AI 交易风险偏好</td></tr><tr><td>晶圆代工</td><td>台积电 ADR（TSM）</td><td class="num">415.58</td><td class="num loss">-1.34%</td><td class="num gain">+4.32%</td><td class="num loss">-12.98%</td><td class="num gain">+36.75%</td><td>代工链跟随半导体景气预期波动</td></tr><tr><td>存储</td><td>Micron（MU）</td><td class="num">990.21</td><td class="num gain">+3.20%</td><td class="num gain">+16.64%</td><td class="num loss">-14.21%</td><td class="num gain">+246.94%</td><td>存储链对 AI 服务器需求和周期位置敏感</td></tr><tr><td>存储</td><td>SanDisk（SNDK）</td><td class="num">1,610.33</td><td class="num gain">+0.69%</td><td class="num gain">+18.86%</td><td class="num loss">-29.18%</td><td class="num gain">+578.38%</td><td>高弹性存储标的，波动通常高于大盘</td></tr><tr><td>存储</td><td>SK hynix ADR（SKHY）</td><td class="num">169.50</td><td class="num gain">+2.56%</td><td class="num gain">+10.04%</td><td class="num gain">+0.89%</td><td class="num gain">+0.89%</td><td>HBM 与高端存储代表，跟随 AI 内存链景气波动</td></tr><tr><td>光模块/光通信</td><td>Coherent（COHR）</td><td class="num">313.22</td><td class="num gain">+0.33%</td><td class="num gain">+12.83%</td><td class="num loss">-20.60%</td><td class="num gain">+69.70%</td><td>光通信链反映 AI 数据中心互联需求</td></tr><tr><td>光模块/光通信</td><td>Lumentum（LITE）</td><td class="num">833.64</td><td class="num gain">+0.47%</td><td class="num gain">+13.76%</td><td class="num loss">-2.85%</td><td class="num gain">+126.17%</td><td>光器件方向跟随 AI 硬件情绪波动</td></tr><tr><td>云与 AI 平台</td><td>Alphabet（GOOGL）<span class="mega-tag">美股七巨头</span></td><td class="num">317.69</td><td class="num loss volatile">-7.13%</td><td class="num loss">-8.39%</td><td class="num loss">-11.10%</td><td class="num gain">+1.50%</td><td>搜索与云平台股，受 AI 投入回报预期影响</td></tr><tr><td>云与 AI 平台</td><td>Amazon（AMZN）<span class="mega-tag">美股七巨头</span></td><td class="num">233.66</td><td class="num loss">-4.57%</td><td class="num loss">-5.49%</td><td class="num loss">-1.96%</td><td class="num gain">+1.23%</td><td>云业务相关权重股，体现平台资本开支预期</td></tr><tr><td>云与 AI 平台</td><td>Meta（META）<span class="mega-tag">美股七巨头</span></td><td class="num">606.10</td><td class="num loss">-3.36%</td><td class="num loss">-6.18%</td><td class="num gain">+7.60%</td><td class="num loss">-8.18%</td><td>AI 应用与广告平台，资金风格影响明显</td></tr><tr><td>AI 应用/软件</td><td>Microsoft（MSFT）<span class="mega-tag">美股七巨头</span></td><td class="num">381.58</td><td class="num loss">-2.24%</td><td class="num loss">-3.11%</td><td class="num gain">+2.29%</td><td class="num loss">-21.10%</td><td>AI 软件与云平台核心权重，影响大型科技定价</td></tr><tr><td>AI 应用/软件</td><td>Palantir（PLTR）</td><td class="num">123.37</td><td class="num loss">-0.96%</td><td class="num loss">-6.81%</td><td class="num gain">+5.74%</td><td class="num loss">-30.59%</td><td>AI 软件代表，短线受估值和获利盘影响</td></tr><tr><td>AI 应用/软件</td><td>Apple（AAPL）<span class="mega-tag">美股七巨头</span></td><td class="num">321.66</td><td class="num loss">-1.30%</td><td class="num loss">-3.62%</td><td class="num gain">+11.16%</td><td class="num gain">+18.32%</td><td>端侧 AI 与消费电子代表，纳入应用层观察</td></tr><tr><td>AI 应用/机器人</td><td>Tesla（TSLA）<span class="mega-tag">美股七巨头</span></td><td class="num">319.69</td><td class="num loss volatile">-14.52%</td><td class="num loss">-16.06%</td><td class="num loss">-23.99%</td><td class="num loss">-28.91%</td><td>自动驾驶、机器人与 AI 应用代表，波动较高</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
       <div class="period-chart asset-ytd-chart" role="img" aria-label="AI 产业链代表股票年涨幅横向柱状图">
       <div class="period-chart-head">
         <h3>AI 产业链年涨幅</h3>
         <div class="period-chart-legend"><span class="legend-ytd">年初至今（YTD）</span></div>
       </div>
       <div class="period-bars"><div class="period-bar-row">
-              <div class="period-bar-label">Alphabet（GOOGL）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:1.65%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+6.62%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">Amazon（AMZN）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:0.80%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+0.02%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">Meta（META）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd loss" style="--start:7.08%;--width:2.52%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="loss">-10.10%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">Microsoft（MSFT）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd loss" style="--start:4.94%;--width:4.67%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="loss">-18.67%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">Tesla（TSLA）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd loss" style="--start:1.70%;--width:7.91%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="loss">-31.64%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">Oracle（ORCL）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:9.61%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="loss">-38.45%</strong></div>
-            </div><div class="period-bar-row">
               <div class="period-bar-label">NVIDIA（NVDA）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:1.41%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:1.96%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+5.64%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+11.94%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">AMD（AMD）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:28.06%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:24.96%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+112.28%</strong></div>
-            </div><div class="period-bar-row">
-              <div class="period-bar-label">Intel（INTC）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:33.45%"></span>
-              </div>
-              <div class="period-bar-values"><strong class="gain">+133.88%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+152.00%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">台积电 ADR（TSM）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:7.27%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:6.03%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+29.10%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+36.75%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">Micron（MU）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:46.85%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:40.55%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+187.49%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+246.94%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">SanDisk（SNDK）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:90.39%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:94.98%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+361.75%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+578.38%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">SK hynix ADR（SKHY）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd loss" style="--start:3.98%;--width:5.63%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:0.80%"></span>
               </div>
-              <div class="period-bar-values"><strong class="loss">-22.52%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+0.89%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">Coherent（COHR）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:7.96%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:11.45%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+31.84%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+69.70%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">Lumentum（LITE）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:19.21%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:20.72%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+76.87%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+126.17%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Alphabet（GOOGL）</div>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:0.80%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+1.50%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Amazon（AMZN）</div>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:0.80%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+1.23%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Meta（META）</div>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd loss" style="--start:3.68%;--width:1.34%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-8.18%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Microsoft（MSFT）</div>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd loss" style="--start:1.56%;--width:3.46%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-21.10%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">Palantir（PLTR）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd loss" style="--start:1.99%;--width:7.62%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:5.02%"></span>
               </div>
-              <div class="period-bar-values"><strong class="loss">-30.50%</strong></div>
+              <div class="period-bar-values"><strong class="loss">-30.59%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">Apple（AAPL）</div>
-              <div class="period-bar-track" style="--zero:9.61%">
-                <span class="period-bar-fill series-ytd gain" style="--start:9.61%;--width:6.27%"></span>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd gain" style="--start:5.02%;--width:3.01%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+25.09%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+18.32%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Tesla（TSLA）</div>
+              <div class="period-bar-track" style="--zero:5.02%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.28%;--width:4.75%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-28.91%</strong></div>
             </div></div>
     </div>
       <p class="note">注：AI 产业链代表股票为观察样本，不覆盖全部相关公司；每个产业链环节最多展示 3 只股票。</p>
       <h3>美债美元</h3>
-      <div class="table-wrap wide"><table><thead><tr><th>资产</th><th class="num">07 月 28 日水平</th><th class="num">日变动</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td>10 年期美债收益率</td><td class="num">4.60%</td><td class="num loss">-4 BP</td><td class="num loss">-10 BP</td><td class="num gain">+19 BP</td><td class="num gain">+44 BP</td></tr><tr><td>30 年期美债收益率</td><td class="num">5.10%</td><td class="num loss">-3 BP</td><td class="num loss">-8 BP</td><td class="num gain">+19 BP</td><td class="num gain">+26 BP</td></tr><tr><td>美元指数</td><td class="num">101.510</td><td class="num gain">+0.08%</td><td class="num gain">+0.08%</td><td class="num gain">+0.32%</td><td class="num gain">+3.29%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <div class="table-wrap wide"><table><thead><tr><th>资产</th><th class="num">07 月 23 日水平</th><th class="num">日变动</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td>10 年期美债收益率</td><td class="num">4.70%</td><td class="num gain volatile">+5 BP</td><td class="num gain">+16 BP</td><td class="num gain">+28 BP</td><td class="num gain">+54 BP</td></tr><tr><td>30 年期美债收益率</td><td class="num">5.17%</td><td class="num gain">+2 BP</td><td class="num gain">+11 BP</td><td class="num gain">+27 BP</td><td class="num gain">+33 BP</td></tr><tr><td>美元指数</td><td class="num">101.444</td><td class="num gain">+0.30%</td><td class="num gain">+0.69%</td><td class="num gain">+0.25%</td><td class="num gain">+3.22%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
       <h3>商品与加密资产</h3>
-      <div class="table-wrap"><table><thead><tr><th>资产</th><th class="num">07 月 28 日结算/收盘</th><th class="num">日涨跌幅</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td>COMEX 黄金</td><td class="num">4,036.30 美元/盎司</td><td class="num loss">-0.94%</td><td class="num loss">-0.77%</td><td class="num gain">+0.33%</td><td class="num loss">-6.69%</td></tr><tr><td>WTI 原油</td><td class="num">79.26 美元/桶</td><td class="num loss">-4.06%</td><td class="num loss">-11.25%</td><td class="num gain">+14.04%</td><td class="num gain">+38.04%</td></tr><tr><td>Brent 原油</td><td class="num">84.09 美元/桶</td><td class="num loss">-4.83%</td><td class="num loss">-13.11%</td><td class="num gain">+15.32%</td><td class="num gain">+38.19%</td></tr><tr><td>COMEX 铜</td><td class="num">6.32 美元/磅</td><td class="num loss">-0.27%</td><td class="num gain">+0.03%</td><td class="num gain">+2.09%</td><td class="num gain">+12.29%</td></tr><tr><td>比特币</td><td class="num">63,724.90 美元</td><td class="num loss">-2.47%</td><td class="num loss">-2.47%</td><td class="num gain">+8.82%</td><td class="num loss">-27.18%</td></tr><tr><td>以太坊</td><td class="num">1,890.61 美元</td><td class="num loss">-3.21%</td><td class="num loss">-3.21%</td><td class="num gain">+20.45%</td><td class="num loss">-36.28%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <div class="table-wrap"><table><thead><tr><th>资产</th><th class="num">07 月 23 日结算/收盘</th><th class="num">日涨跌幅</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td>COMEX 黄金</td><td class="num">4,050.70 美元/盎司</td><td class="num loss">-2.32%</td><td class="num gain">+0.95%</td><td class="num gain">+0.69%</td><td class="num loss">-6.36%</td></tr><tr><td>WTI 原油</td><td class="num">92.17 美元/桶</td><td class="num gain volatile">+6.15%</td><td class="num gain">+11.73%</td><td class="num gain">+32.62%</td><td class="num gain">+60.52%</td></tr><tr><td>Brent 原油</td><td class="num">100.44 美元/桶</td><td class="num gain volatile">+6.77%</td><td class="num gain">+14.01%</td><td class="num gain">+37.74%</td><td class="num gain">+65.06%</td></tr><tr><td>COMEX 铜</td><td class="num">6.33 美元/磅</td><td class="num loss">-1.88%</td><td class="num gain">+1.77%</td><td class="num gain">+2.22%</td><td class="num gain">+12.43%</td></tr><tr><td>比特币</td><td class="num">66,100.80 美元</td><td class="num loss">-0.61%</td><td class="num gain">+2.18%</td><td class="num gain">+12.88%</td><td class="num loss">-24.46%</td></tr><tr><td>以太坊</td><td class="num">1,933.49 美元</td><td class="num gain">+0.26%</td><td class="num gain">+3.31%</td><td class="num gain">+23.18%</td><td class="num loss">-34.83%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
       <div class="period-chart asset-ytd-chart" role="img" aria-label="商品与加密资产年涨幅横向柱状图">
       <div class="period-chart-head">
         <h3>商品与加密资产年涨幅</h3>
@@ -1028,40 +965,40 @@
       </div>
       <div class="period-bars"><div class="period-bar-row">
               <div class="period-bar-label">COMEX 黄金</div>
-              <div class="period-bar-track" style="--zero:48.72%">
-                <span class="period-bar-fill series-ytd loss" style="--start:39.73%;--width:8.98%"></span>
+              <div class="period-bar-track" style="--zero:34.87%">
+                <span class="period-bar-fill series-ytd loss" style="--start:28.50%;--width:6.37%"></span>
               </div>
-              <div class="period-bar-values"><strong class="loss">-6.69%</strong></div>
+              <div class="period-bar-values"><strong class="loss">-6.36%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">WTI 原油</div>
-              <div class="period-bar-track" style="--zero:48.72%">
-                <span class="period-bar-fill series-ytd gain" style="--start:48.72%;--width:51.08%"></span>
+              <div class="period-bar-track" style="--zero:34.87%">
+                <span class="period-bar-fill series-ytd gain" style="--start:34.87%;--width:60.59%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+38.04%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+60.52%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">Brent 原油</div>
-              <div class="period-bar-track" style="--zero:48.72%">
-                <span class="period-bar-fill series-ytd gain" style="--start:48.72%;--width:51.28%"></span>
+              <div class="period-bar-track" style="--zero:34.87%">
+                <span class="period-bar-fill series-ytd gain" style="--start:34.87%;--width:65.13%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+38.19%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+65.06%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">COMEX 铜</div>
-              <div class="period-bar-track" style="--zero:48.72%">
-                <span class="period-bar-fill series-ytd gain" style="--start:48.72%;--width:16.50%"></span>
+              <div class="period-bar-track" style="--zero:34.87%">
+                <span class="period-bar-fill series-ytd gain" style="--start:34.87%;--width:12.44%"></span>
               </div>
-              <div class="period-bar-values"><strong class="gain">+12.29%</strong></div>
+              <div class="period-bar-values"><strong class="gain">+12.43%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">比特币</div>
-              <div class="period-bar-track" style="--zero:48.72%">
-                <span class="period-bar-fill series-ytd loss" style="--start:12.22%;--width:36.50%"></span>
+              <div class="period-bar-track" style="--zero:34.87%">
+                <span class="period-bar-fill series-ytd loss" style="--start:10.38%;--width:24.49%"></span>
               </div>
-              <div class="period-bar-values"><strong class="loss">-27.18%</strong></div>
+              <div class="period-bar-values"><strong class="loss">-24.46%</strong></div>
             </div><div class="period-bar-row">
               <div class="period-bar-label">以太坊</div>
-              <div class="period-bar-track" style="--zero:48.72%">
-                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:48.72%"></span>
+              <div class="period-bar-track" style="--zero:34.87%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:34.87%"></span>
               </div>
-              <div class="period-bar-values"><strong class="loss">-36.28%</strong></div>
+              <div class="period-bar-values"><strong class="loss">-34.83%</strong></div>
             </div></div>
     </div>
       <p class="note">注：自动生成版本会优先使用公开行情源；不同数据源、时区、结算价和盘后报价可能存在差异，发布前建议人工复核关键价格。</p>
@@ -1074,83 +1011,83 @@
               <div>
                 <div class="segbar" style="--segments:13fr 3fr 4fr 5fr 5fr 10fr; --pos:42%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-red "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
                 <div class="range-legend" style="--cols:6"><span>&lt;13</span><span>13-16</span><span>16-20</span><span>20-25</span><span>25-30</span><span>&gt;30</span></div>
-                <div class="score-meta">18.21｜中性</div>
+                <div class="score-meta">18.70｜中性</div>
               </div>
               <div class="score-pill">22 / 30</div>
             </div><div class="score-row">
-              <div><strong class="score-name">Put/Call Ratio <i class="help-tip" data-tip="Put/Call Ratio 反映看跌期权与看涨期权成交关系。本期采用 Cboe Daily Market Statistics 的收盘统计。">?</i></strong><span>权重 18</span></div>
+              <div><strong class="score-name">Put/Call Ratio <i class="help-tip" data-tip="Put/Call Ratio 反映看跌期权与看涨期权成交关系。本期采用 Cboe Current Market Statistics 的收盘统计。">?</i></strong><span>权重 18</span></div>
               <div>
-                <div class="segbar" style="--segments:6fr 2fr 2fr 2fr 4fr; --pos:48%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="segbar" style="--segments:6fr 2fr 2fr 2fr 4fr; --pos:28%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
                 <div class="range-legend" style="--cols:5"><span>&lt;0.60</span><span>0.60-0.80</span><span>0.80-1.00</span><span>1.00-1.20</span><span>&gt;1.20</span></div>
-                <div class="score-meta">0.96｜中性</div>
+                <div class="score-meta">0.75｜乐观</div>
               </div>
-              <div class="score-pill">12 / 18</div>
+              <div class="score-pill">16 / 18</div>
             </div><div class="score-row">
               <div><strong class="score-name">Market Breadth <i class="help-tip" data-tip="Market Breadth 使用标普 500 成分股上涨家数占比；覆盖率不足 90% 时自动退回行业板块代理并标注备用口径。">?</i></strong><span>权重 18</span></div>
               <div>
-                <div class="segbar" style="--segments:3fr 1fr 1fr 1fr 1fr 3fr; --pos:72%"><span class="seg-darkred seg-start"></span><span class="seg-red "></span><span class="seg-orange "></span><span class="seg-yellow "></span><span class="seg-lightgreen "></span><span class="seg-green seg-end"></span><i class="range-marker"></i></div>
+                <div class="segbar" style="--segments:3fr 1fr 1fr 1fr 1fr 3fr; --pos:45%"><span class="seg-darkred seg-start"></span><span class="seg-red "></span><span class="seg-orange "></span><span class="seg-yellow "></span><span class="seg-lightgreen "></span><span class="seg-green seg-end"></span><i class="range-marker"></i></div>
                 <div class="range-legend" style="--cols:6"><span>&lt;30%</span><span>30-40%</span><span>40-50%</span><span>50-60%</span><span>60-70%</span><span>&gt;70%</span></div>
-                <div class="score-meta">上涨比例 69.2%｜覆盖 503/503</div>
+                <div class="score-meta">上涨比例 42.3%｜覆盖 503/503</div>
               </div>
-              <div class="score-pill">14 / 18</div>
+              <div class="score-pill">7 / 18</div>
             </div><div class="score-row">
               <div><strong class="score-name">SPY / RSP Ratio <i class="help-tip" data-tip="SPY/RSP Ratio 使用两只 ETF 的收盘价比值。比率高于并继续远离 20 日均值，表示市值权重股相对占优；比率下降表示等权成分扩散。">?</i></strong><span>权重 12</span></div>
               <div>
-                <div class="segbar" style="--segments:3fr 3fr 4fr 3fr 3fr 3fr; --pos:8%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-red "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="segbar" style="--segments:3fr 3fr 4fr 3fr 3fr 3fr; --pos:24%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-red "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
                 <div class="range-legend" style="--cols:6"><span>≤-1.0%</span><span>-1.0~-0.25%</span><span>-0.25~0.25%</span><span>0.25~0.75%</span><span>0.75~1.50%</span><span>&gt;1.50%</span></div>
-                <div class="score-meta">Ratio 3.403x｜20日偏离 -2.55%｜等权扩散</div>
+                <div class="score-meta">Ratio 3.483x｜20日偏离 -0.42%｜广度改善</div>
               </div>
-              <div class="score-pill">12 / 12</div>
+              <div class="score-pill">11 / 12</div>
             </div><div class="score-row">
               <div><strong class="score-name">US10Y <i class="help-tip" data-tip="10 年期美债收益率是估值折现率锚，收益率越高，对成长股估值压力通常越大。">?</i></strong><span>权重 16</span></div>
               <div>
                 <div class="segbar" style="--segments:35fr 5fr 5fr 5fr 10fr; --pos:76%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
                 <div class="range-legend" style="--cols:5"><span>&lt;3.5%</span><span>3.5-4.0%</span><span>4.0-4.5%</span><span>4.5-5.0%</span><span>&gt;5.0%</span></div>
-                <div class="score-meta">4.60%｜偏高</div>
+                <div class="score-meta">4.70%｜偏高</div>
               </div>
               <div class="score-pill">5 / 16</div>
             </div><div class="score-row">
               <div><strong class="score-name">Sector Rotation <i class="help-tip" data-tip="Sector Rotation 使用进攻板块平均日收益减防御板块平均日收益连续评分，减少单纯排名造成的跳变。">?</i></strong><span>权重 6</span></div>
               <div>
-                <div class="segbar" style="--segments:10fr 8fr 6fr 3fr 3fr; --pos:58%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="segbar" style="--segments:10fr 8fr 6fr 3fr 3fr; --pos:90%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
                 <div class="range-legend" style="--cols:5"><span>进攻强</span><span>偏进攻</span><span>均衡</span><span>偏防御</span><span>防御强</span></div>
-                <div class="score-meta">进攻-防御 -0.43 pct｜偏防御</div>
+                <div class="score-meta">进攻-防御 -1.55 pct｜极端防御</div>
               </div>
-              <div class="score-pill">2 / 6</div>
+              <div class="score-pill">0 / 6</div>
             </div></div>
         <p class="note">评分区间：85-100 极度乐观，70-85 乐观，55-70 中性偏乐观，45-55 中性，30-45 谨慎，15-30 恐慌，0-15 极端恐慌。</p>
       </details>
     </section>
     <section class="section">
       <h2>数据质量与来源</h2>
-      <div class="validation-banner validation-warn">
-      <div><strong>自动异常检查：通过（有提醒）</strong><span>已检查 90 项数据规则</span></div>
-      <ul><li><b>核心行情 待复核</b><span>39 组股票/ETF/利率行情日期检查</span></li></ul>
+      <div class="validation-banner validation-ok">
+      <div><strong>自动异常检查：通过</strong><span>已检查 86 项数据规则</span></div>
+      <b>未发现缺失值、日期错位或超阈值波动。</b>
     </div>
       <div class="quality-grid"><div class="quality-card">
-          <div><strong>核心行情</strong><span>Yahoo / StockAnalysis / AP</span></div>
-          <b class="quality-warn">待复核</b>
-          <small>2026-07-28｜39 组股票/ETF/利率行情日期检查</small>
+          <div><strong>核心行情</strong><span>Yahoo Finance</span></div>
+          <b class="quality-ok">已校验</b>
+          <small>2026-07-23｜37 组股票/ETF/利率行情日期检查</small>
         </div><div class="quality-card">
-          <div><strong>Put/Call</strong><span>Cboe Daily Market Statistics</span></div>
+          <div><strong>Put/Call</strong><span>Cboe Current Market Statistics</span></div>
           <b class="quality-ok">已确认</b>
-          <small>2026-07-28｜Total / Equity 日度比率</small>
+          <small>2026-07-23｜Total / Equity 日度比率；源更新时间 16:40 23/07/2026</small>
         </div><div class="quality-card">
           <div><strong>Market Breadth</strong><span>S&amp;P 500 / Yahoo</span></div>
           <b class="quality-ok">已校验</b>
-          <small>2026-07-28｜覆盖 503/503</small>
+          <small>2026-07-23｜覆盖 503/503</small>
         </div><div class="quality-card">
           <div><strong>美债收益率</strong><span>Yahoo Finance</span></div>
           <b class="quality-ok">自动校验</b>
-          <small>2026-07-28｜BP 变化建议发布前交叉复核</small>
+          <small>2026-07-23｜BP 变化建议发布前交叉复核</small>
         </div><div class="quality-card">
           <div><strong>商品与加密</strong><span>Yahoo Finance</span></div>
           <b class="quality-warn">时区口径</b>
-          <small>2026-07-28｜源标签 2026-07-27, 2026-07-28；按各市场结算/收盘口径展示</small>
+          <small>2026-07-23｜源标签 2026-07-22, 2026-07-23；按各市场结算/收盘口径展示</small>
         </div></div>
       <h3>数据来源</h3>
-      <p class="source-stamp">生成时间：2026-07-29T12:42+08:00｜市场数据截至：2026-07-28 收盘</p>
-      <ul class="sources"><li><a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Yahoo Finance：历史行情、VIX、美债、商品与加密资产日线。</a></li><li><a href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis：股票及 ETF 最新完整交易日收盘备用行情。</a></li><li><a href="https://apnews.com/article/wall-street-stocks-dow-nasdaq-d2a114bce818cab6ee9583f4815cb89a" target="_blank" rel="noopener noreferrer">AP：四大指数正式收盘点位交叉校验。</a></li><li><a href="https://www.cboe.com/markets/us/options/market-statistics/daily?dt=2026-07-28" target="_blank" rel="noopener noreferrer">Cboe Daily Market Statistics：2026-07-28 Total / Equity Put/Call Ratio。</a></li><li><a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies" target="_blank" rel="noopener noreferrer">标普 500 成分股清单：Market Breadth 样本池。</a></li><li><a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates" target="_blank" rel="noopener noreferrer">U.S. Treasury：美债收益率交叉复核口径。</a></li></ul>
+      <p class="source-stamp">生成时间：2026-07-24T08:00+08:00｜市场数据截至：2026-07-23 收盘</p>
+      <ul class="sources"><li><a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Yahoo Finance：指数、ETF、VIX、SPY/RSP、AI 产业链、商品与加密资产日线。</a></li><li><a href="https://www.cboe.com/us/options/market_statistics/market/2026-07-23/" target="_blank" rel="noopener noreferrer">Cboe Current Market Statistics：2026-07-23 Total / Equity Put/Call Ratio。</a></li><li><a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies" target="_blank" rel="noopener noreferrer">标普 500 成分股清单：Market Breadth 样本池。</a></li><li><a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates" target="_blank" rel="noopener noreferrer">U.S. Treasury：美债收益率交叉复核口径。</a></li></ul>
     </section>
   </main>
 </body>
