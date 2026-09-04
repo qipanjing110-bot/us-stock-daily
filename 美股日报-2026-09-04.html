@@ -1,0 +1,1171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美股日报：市场分化，关注利率、油价与 AI 链条强弱</title>
+  <style>
+    :root {
+      --ink: #172331;
+      --muted: #66768a;
+      --line: #d8e1ea;
+      --panel: #ffffff;
+      --page: #f3f6f8;
+      --navy: #16324f;
+      --teal: #0f766e;
+      --red: #b42318;
+      --green: #067647;
+      --amber: #b54708;
+      --soft-blue: #eaf2fb;
+      --soft-teal: #e7f5f2;
+      --shadow: 0 16px 42px rgba(24, 39, 75, 0.08);
+      --shadow-soft: 0 8px 24px rgba(24, 39, 75, 0.045);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.62;
+    }
+
+    .page { max-width: 1160px; margin: 0 auto; padding: 28px 22px 52px; }
+
+    .hero {
+      overflow: hidden;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(11, 31, 52, 0.98) 0%, rgba(20, 81, 91, 0.96) 58%, rgba(39, 78, 96, 0.96) 100%);
+      border-radius: 8px;
+      padding: 36px 34px 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    h1 { margin: 18px 0 8px; font-size: clamp(42px, 6.5vw, 66px); line-height: 1.02; letter-spacing: 0; }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .hero-metric {
+      min-height: 92px;
+      padding: 13px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.075);
+    }
+
+    .hero-metric span {
+      display: block;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .hero-metric strong {
+      display: block;
+      margin-top: 8px;
+      color: #f8fbff;
+      font-size: 23px;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .hero-metric em {
+      display: block;
+      margin-top: 8px;
+      font-style: normal;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .hero-metric .gain { color: #7dd3a7; }
+    .hero-metric .loss { color: #ffb4a8; }
+    .hero-metric .neutral { color: #ffd166; }
+
+    .section {
+      margin-top: 18px;
+      padding: 24px 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .section h2 { margin: 0 0 16px; color: var(--navy); font-size: 24px; line-height: 1.25; }
+    .section h3 { margin: 24px 0 10px; color: #27445f; font-size: 17px; line-height: 1.3; }
+
+    .daily-monitoring { margin-top: 14px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .daily-change-strip, .watch-strip { display: grid; grid-template-columns: 150px 1fr; gap: 14px; align-items: stretch; }
+    .watch-strip { border-top: 1px solid var(--line); }
+    .monitoring-title { display: flex; align-items: center; color: var(--navy); font-size: 15px; font-weight: 900; }
+    .daily-change-items, .watch-items { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .daily-change-item, .watch-item { min-width: 0; padding: 14px 16px; border-left: 1px solid var(--line); }
+    .daily-change-item > span, .daily-change-item > strong, .daily-change-item > b { display: block; }
+    .daily-change-item > span { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .daily-change-item > strong { margin-top: 4px; color: var(--navy); font-size: 19px; line-height: 1.2; }
+    .daily-change-item > b { margin-top: 4px; font-size: 13px; }
+    .watch-item > div { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .watch-item strong { color: var(--navy); font-size: 14px; }
+    .watch-item b { padding: 2px 6px; border-radius: 999px; background: #eef3f7; color: var(--muted); font-size: 10px; white-space: nowrap; }
+    .watch-item span, .watch-item small { display: block; }
+    .watch-item span { margin-top: 5px; color: #38516a; font-size: 13px; font-weight: 800; }
+    .watch-item small { margin-top: 4px; color: var(--muted); font-size: 11px; font-weight: 700; line-height: 1.4; }
+    .watch-item.watch-active { background: #fff8e8; }
+    .watch-item.watch-active b { background: #f7e6b8; color: #8a5c00; }
+
+    .risk-alert { margin-top: 12px; padding: 13px 15px; border: 1px solid #f2c9c5; border-left: 4px solid var(--red); border-radius: 8px; background: #fff4f2; }
+    .risk-alert strong { color: var(--red); font-size: 13px; }
+    .risk-alert ul { margin: 6px 0 0; padding-left: 18px; }
+    .risk-alert li { margin: 2px 0; color: #6f2b26; font-size: 12px; font-weight: 700; }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .summary li {
+      min-height: 104px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--soft-blue);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 4px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+
+    th { color: #36506b; background: #eef4f8; font-weight: 850; }
+    tbody tr:nth-child(even) td { background: #fbfdff; }
+    tbody tr:hover td { background: #f5f9fc; }
+    tr:last-child td { border-bottom: 0; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+
+    .table-wrap {
+      position: relative;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 8px;
+    }
+
+    .table-wrap table {
+      min-width: 760px;
+    }
+
+    .table-wrap.compact table {
+      min-width: 620px;
+    }
+
+    .table-wrap.wide table {
+      min-width: 980px;
+    }
+
+    .scroll-hint {
+      display: none;
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .loss { color: var(--red); font-weight: 800; }
+    .gain { color: var(--green); font-weight: 800; }
+    .neutral { color: var(--amber); font-weight: 800; }
+
+    .period-chart {
+      margin-top: 14px;
+      padding: 16px 18px 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f8fbfd;
+    }
+
+    .period-chart-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0;
+    }
+
+    .collapsible-chart > summary { cursor: pointer; list-style: none; }
+    .collapsible-chart > summary::-webkit-details-marker { display: none; }
+    .collapsible-chart > summary::after { content: "+"; display: grid; place-items: center; width: 24px; height: 24px; flex: 0 0 24px; border-radius: 50%; background: #e9f1fb; color: var(--navy); font-size: 17px; font-weight: 900; }
+    .collapsible-chart[open] > summary { margin-bottom: 14px; }
+    .collapsible-chart[open] > summary::after { content: "−"; }
+    .period-chart-head h3 { margin: 0; }
+    .period-chart-legend { display: flex; gap: 14px; margin-left: auto; color: var(--muted); font-size: 12px; font-weight: 800; }
+    .period-chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .period-chart-legend span::before { content: ""; width: 16px; height: 7px; border-radius: 2px; }
+    .period-chart-legend .legend-month::before { background: #4f86c6; }
+    .period-chart-legend .legend-ytd::before { background: #15966a; }
+    .period-bars { display: grid; gap: 12px; }
+
+    .period-bar-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 220px) minmax(160px, 1fr) 146px;
+      gap: 14px;
+      align-items: center;
+      min-height: 28px;
+    }
+
+    .period-bar-label { color: #27445f; font-size: 13px; font-weight: 750; }
+    .sector-bar-ticker { color: var(--muted); font-size: 11px; font-weight: 800; }
+
+    .period-bar-track {
+      position: relative;
+      height: 20px;
+      overflow: hidden;
+      border-radius: 4px;
+      background: #e7eef4;
+    }
+
+    .period-bar-track::after {
+      content: "";
+      position: absolute;
+      left: var(--zero);
+      top: -2px;
+      bottom: -2px;
+      width: 2px;
+      background: #5f7387;
+      transform: translateX(-1px);
+    }
+
+    .period-bar-fill {
+      position: absolute;
+      left: var(--start);
+      width: var(--width);
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 2px;
+    }
+
+    .period-bar-fill.series-ytd { height: 16px; background: #15966a; z-index: 1; }
+    .period-bar-fill.series-ytd.loss { background: #b72f2a; }
+    .period-bar-fill.series-month { height: 6px; background: #9fc6ef; z-index: 2; }
+    .period-bar-fill.series-month.loss { background: #ffb1a9; }
+    .annual-month-stack {
+      position: absolute;
+      left: var(--start);
+      top: 50%;
+      display: flex;
+      width: var(--width);
+      height: 16px;
+      overflow: hidden;
+      border-radius: 3px;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+    .annual-month-segment { position: relative; min-width: 2px; height: 100%; border-right: 1px solid rgba(255,255,255,.8); }
+    .annual-month-segment.gain { background: #15966a; }
+    .annual-month-segment.loss { background: #d4544c; }
+    .annual-month-segment.neutral { background: #d89214; }
+    .annual-month-segment em {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 9px;
+      font-style: normal;
+      font-weight: 900;
+    }
+    .sp500-segmented .period-bar-label { color: #123d60; font-weight: 900; }
+    .period-bar-values { display: flex; justify-content: flex-end; gap: 10px; text-align: right; font-size: 12px; white-space: nowrap; }
+    .period-bar-values strong::before { content: "年 "; color: var(--muted); font-weight: 700; }
+    .period-bar-values span::before { content: "月 "; color: var(--muted); font-weight: 700; }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 0.78fr 1.22fr;
+      gap: 14px;
+      align-items: stretch;
+      margin-top: 16px;
+    }
+
+    .dashboard-score {
+      padding: 18px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #153853 0%, #1c6570 100%);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .dashboard-score.score-optimistic { background: linear-gradient(135deg, #115e45 0%, #1f8a5f 100%); }
+    .dashboard-score.score-constructive { background: linear-gradient(135deg, #166457 0%, #2c8b70 100%); }
+    .dashboard-score.score-neutral { background: linear-gradient(135deg, #173b5c 0%, #1f6b72 100%); }
+    .dashboard-score.score-cautious { background: linear-gradient(135deg, #6f4e16 0%, #a36412 100%); }
+    .dashboard-score.score-risk { background: linear-gradient(135deg, #6f1d1b 0%, #9b1c1c 100%); }
+
+    .dashboard-score span { display: block; color: rgba(255, 255, 255, 0.72); font-size: 13px; font-weight: 800; }
+    .dashboard-score strong { display: block; margin-top: 8px; font-size: 26px; }
+
+    .risk-ring {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(292px, 100%);
+      aspect-ratio: 1;
+      margin: 16px auto 10px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #17415c 0 51%, transparent 52%),
+        conic-gradient(from 0deg,
+          #7f1515 0deg 54deg,
+          #c62828 54deg 108deg,
+          #f59e0b 108deg 162deg,
+          #f2c94c 162deg 198deg,
+          #7cc66a 198deg 252deg,
+          #2fb66d 252deg 306deg,
+          #087f5b 306deg 360deg);
+      box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+        0 10px 28px rgba(10, 39, 63, 0.18);
+    }
+
+    .risk-ring::before {
+      content: "";
+      position: absolute;
+      inset: 21%;
+      border-radius: 50%;
+      background: #17415c;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.16), 0 0 0 8px rgba(23,65,92,.32);
+    }
+
+    .risk-ring::after { content: ""; position: absolute; inset: 18%; border-radius: 50%; border: 1px solid rgba(255,255,255,.18); }
+    .risk-ring-inner { position: absolute; left: 50%; top: 50%; width: 43%; transform: translate(-50%, -50%); z-index: 4; }
+    .score-number { display: flex; align-items: baseline; justify-content: center; gap: 4px; font-size: 56px; font-weight: 950; line-height: 1; letter-spacing: 0; text-shadow: 0 2px 14px rgba(0,0,0,.18); }
+    .score-number small { color: rgba(255,255,255,.78); font-size: 15px; font-weight: 900; }
+    .gauge-label { margin-top: 7px; color: rgba(255,255,255,.82); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+
+    .risk-ring-band {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 60px;
+      min-height: 24px;
+      padding: 3px 5px;
+      border-radius: 999px;
+      color: rgba(255,255,255,.9);
+      font-size: 9px;
+      font-weight: 900;
+      line-height: 1.05;
+      text-align: center;
+      transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-116px) rotate(calc(-1 * var(--angle)));
+      text-shadow: 0 1px 3px rgba(0,0,0,.45);
+      pointer-events: none;
+    }
+
+    .risk-ring-band.current {
+      color: #fff;
+      background: rgba(12,43,66,.52);
+      box-shadow: 0 0 0 2px #fff, 0 3px 10px rgba(0,0,0,.28);
+    }
+
+    .risk-ring-marker {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 5;
+      width: 15px;
+      height: 15px;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      background: #173b5c;
+      transform: translate(-50%, -50%) rotate(var(--score-angle)) translateY(-137px);
+      box-shadow: 0 0 0 4px rgba(255,255,255,.24), 0 4px 12px rgba(0,0,0,.35);
+    }
+
+    .temperature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .temperature-card, .signal-card { padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; }
+    .temperature-card { min-height: 116px; display: flex; flex-direction: column; }
+    .metric-head { display: flex; align-items: center; gap: 8px; }
+    .metric-head span, .signal-card span { display: block; color: var(--muted); font-size: 12px; font-weight: 800; }
+    .metric-score { margin-left: auto; padding: 4px 8px; border-radius: 999px; background: #e9f1fb; color: var(--navy); font-size: 13px; font-weight: 900; }
+    .metric-value { display: block; margin-top: 8px; color: var(--navy); font-size: 20px; font-weight: 900; line-height: 1.1; }
+    .metric-rating { display: inline-flex; margin-top: 8px; padding: 4px 8px; border-radius: 999px; background: #edf4fb; font-size: 12px; font-weight: 800; }
+    .metric-sub { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; font-weight: 800; }
+
+    .score-drivers { width: 100%; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.22); }
+    .score-drivers div { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 4px 0; font-size: 12px; }
+    .score-drivers span { color: rgba(255,255,255,.72); font-weight: 800; }
+    .score-drivers b { max-width: 66%; text-align: right; }
+    .score-badges { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
+    .score-badges b, .score-badges span { padding: 3px 8px; border: 1px solid rgba(255,255,255,.24); border-radius: 999px; background: rgba(255,255,255,.10); color: #fff; font-size: 10px; font-weight: 900; }
+    .ai-risk-panel { display: grid; grid-template-columns: 250px 1fr; gap: 14px; margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #f8fbfe; }
+    .ai-risk-summary { display: flex; flex-direction: column; justify-content: center; min-height: 176px; padding: 16px; border-radius: 7px; background: #173b5c; color: #fff; }
+    .ai-risk-summary > span { color: rgba(255,255,255,.72); font-size: 11px; font-weight: 900; }
+    .ai-risk-score { display: flex; align-items: baseline; gap: 4px; margin-top: 7px; }
+    .ai-risk-score strong { font-size: 44px; line-height: 1; }
+    .ai-risk-score small { color: rgba(255,255,255,.72); font-size: 13px; font-weight: 900; }
+    .ai-risk-summary > b { margin-top: 5px; font-size: 19px; }
+    .ai-risk-summary > p { margin: 10px 0 0; color: rgba(255,255,255,.78); font-size: 11px; line-height: 1.55; }
+    .ai-divergence { display: block; width: max-content; max-width: 100%; margin-top: 9px; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.12); color: #fff; font-size: 10px; font-style: normal; font-weight: 900; }
+    .ai-divergence.loss { background: #8f2f2a; }
+    .ai-divergence.gain { background: #087f5b; }
+    .ai-risk-components { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+    .ai-risk-component { display: flex; flex-direction: column; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 7px; background: #fff; }
+    .ai-risk-component > div { display: flex; align-items: flex-start; justify-content: space-between; gap: 7px; }
+    .ai-risk-component span { color: var(--navy); font-size: 11px; font-weight: 900; }
+    .ai-risk-component b { color: var(--navy); font-size: 11px; white-space: nowrap; }
+    .ai-risk-component i { display: block; height: 7px; margin-top: 13px; overflow: hidden; border-radius: 999px; background: #e7edf4; }
+    .ai-risk-component i em { display: block; height: 100%; border-radius: inherit; background: #168a72; }
+    .ai-risk-component small { margin-top: 10px; color: var(--muted); font-size: 10px; font-weight: 800; line-height: 1.45; }
+    .ai-risk-panel.ai-risk .ai-risk-summary, .ai-risk-panel.ai-cautious .ai-risk-summary { background: #792421; }
+    .ai-risk-panel.ai-neutral .ai-risk-summary { background: #6f581a; }
+    .ai-risk-panel.ai-constructive .ai-risk-summary { background: #166457; }
+    .ai-risk-panel.ai-optimistic .ai-risk-summary { background: #0b7657; }
+    .signal-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+    .table-label { margin: 0 0 8px; color: #27445f; font-size: 16px; font-weight: 800; }
+    .mega-tag { display: block; width: max-content; margin-top: 5px; padding: 2px 7px; border-radius: 999px; color: #fff; background: var(--navy); font-size: 11px; font-weight: 800; line-height: 1.5; }
+    td.volatile { font-weight: 950; }
+
+    .bond-monitor { margin-top: 14px; padding: 16px 18px 14px; border: 1px solid var(--line); border-radius: 8px; background: #f8fbfd; }
+    .bond-monitor-empty { display: flex; gap: 10px; color: var(--muted); font-size: 13px; }
+    .bond-monitor-empty strong { color: var(--navy); }
+    .bond-monitor-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .bond-monitor-head h3 { margin: 0; }
+    .bond-monitor-head p { margin: 4px 0 0; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .bond-curve-legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; color: var(--muted); font-size: 11px; font-weight: 800; }
+    .bond-curve-legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .bond-curve-legend i { width: 12px; height: 3px; border-radius: 2px; }
+    .bond-curve-legend small { color: var(--muted); font-size: 10px; }
+    .yield-curve-chart { display: block; width: 100%; margin-top: 8px; }
+    .yield-curve-chart line { stroke: #dfe8ef; stroke-width: 1; }
+    .yield-curve-chart text { fill: #66768a; font-size: 12px; font-weight: 750; }
+    .yield-curve-chart polyline { fill: none; stroke-width: 3; vector-effect: non-scaling-stroke; }
+
+    .gold-driver-monitor { margin-top: 14px; padding: 16px 18px 14px; border: 1px solid var(--line); border-radius: 8px; background: #f8fbfd; }
+    .gold-driver-empty { color: var(--muted); font-size: 13px; font-weight: 750; }
+    .gold-driver-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .gold-driver-head h3 { margin: 0; }
+    .gold-driver-head p { max-width: 700px; margin: 4px 0 0; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .gold-driver-legend { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; color: var(--muted); font-size: 11px; font-weight: 800; white-space: nowrap; }
+    .gold-driver-legend span { display: inline-flex; align-items: center; gap: 4px; }
+    .gold-driver-legend i { width: 12px; height: 3px; border-radius: 2px; }
+    .gold-driver-legend .gold-line { background: #b88718; }
+    .gold-driver-legend .spread-line { background: #3b82c4; }
+    .gold-driver-legend .one-year-line { background: #0f766e; }
+    .gold-driver-chart { display: block; width: 100%; margin-top: 8px; }
+    .gold-driver-chart line { stroke: #dfe8ef; stroke-width: 1; }
+    .gold-driver-chart text { fill: #66768a; font-size: 12px; font-weight: 750; }
+    .gold-driver-chart .gold-axis { fill: #9c7410; }
+    .gold-driver-chart .spread-axis { fill: #2d6ca4; }
+    .gold-driver-chart .one-year-axis, .gold-driver-chart .one-year-title { fill: #0f766e; }
+    .gold-driver-chart .one-year-title { font-size: 11px; }
+    .gold-driver-chart .one-year-grid { stroke-dasharray: 3 4; }
+    .gold-driver-chart polyline { fill: none; stroke-width: 3; vector-effect: non-scaling-stroke; }
+    .gold-driver-chart .gold-series { stroke: #b88718; }
+    .gold-driver-chart .spread-series { stroke: #3b82c4; }
+    .gold-driver-chart .one-year-series { stroke: #0f766e; stroke-width: 2.5; }
+    .gold-driver-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 4px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .gold-driver-metric { min-width: 0; padding: 13px 14px; border-right: 1px solid var(--line); }
+    .gold-driver-metric:first-child { padding-left: 0; }
+    .gold-driver-metric:last-child { padding-right: 0; border-right: 0; }
+    .gold-driver-metric > span, .gold-driver-metric > strong, .gold-driver-metric > b, .gold-driver-metric > small { display: block; }
+    .gold-driver-metric > span { color: var(--muted); font-size: 11px; font-weight: 800; }
+    .gold-driver-metric > strong { margin-top: 5px; color: var(--navy); font-size: 20px; line-height: 1.1; }
+    .gold-driver-metric > b { margin-top: 6px; font-size: 12px; }
+    .gold-driver-metric > small { margin-top: 6px; color: var(--muted); font-size: 10px; font-weight: 700; line-height: 1.45; }
+    .move-up { color: #087f5b; }
+    .move-down { color: #b42318; }
+    .move-flat { color: var(--muted); }
+    .gold-driver-state { display: flex; align-items: baseline; gap: 8px; margin-top: 12px; padding: 10px 12px; border-left: 3px solid #74869a; background: #eef3f7; color: #38516a; font-size: 12px; line-height: 1.5; }
+    .gold-driver-state strong { color: var(--navy); white-space: nowrap; }
+    .gold-driver-state.state-caution { border-color: #b88718; background: #fff8e8; color: #765a12; }
+    .gold-driver-state.state-risk { border-color: #b42318; background: #fff2f1; color: #8b302b; }
+    .gold-driver-date { margin: 8px 0 0; color: var(--muted); font-size: 10px; font-weight: 700; }
+
+    .score-bars { display: grid; gap: 12px; }
+    .score-method details > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; list-style: none; }
+    .score-method details > summary::-webkit-details-marker { display: none; }
+    .score-method details > summary strong { color: var(--navy); font-size: 22px; }
+    .score-method details > summary span { color: var(--muted); font-size: 12px; font-weight: 800; }
+    .score-method details > summary::after { content: "+"; display: grid; place-items: center; width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: var(--soft-blue); color: var(--navy); font-size: 18px; font-weight: 900; }
+    .score-method details[open] > summary::after { content: "−"; }
+    .score-method details[open] > .score-bars { margin-top: 16px; }
+    .score-row { display: grid; grid-template-columns: 150px 1fr 86px; gap: 14px; align-items: center; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; }
+    .score-name { display: inline-flex; align-items: center; gap: 6px; color: var(--navy); font-size: 15px; font-weight: 900; }
+    .score-row span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; font-weight: 800; }
+    .score-pill { justify-self: end; min-width: 70px; padding: 6px 8px; border-radius: 999px; background: #edf4fb; color: var(--navy); text-align: center; font-size: 12px; font-weight: 900; }
+    .score-meta { margin-top: 7px; color: var(--muted); font-size: 12px; font-weight: 800; }
+
+    .help-tip { position: relative; display: inline-grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: #e9f1fb; color: var(--navy); font-size: 11px; font-weight: 900; cursor: help; }
+    .help-tip::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); z-index: 10; width: 230px; padding: 9px 10px; border-radius: 8px; background: #102a43; color: #fff; font-size: 12px; line-height: 1.5; font-weight: 700; text-align: left; transform: translateX(-50%); opacity: 0; pointer-events: none; box-shadow: 0 12px 28px rgba(16,42,67,.18); }
+    .help-tip:hover::after { opacity: 1; }
+
+    .segbar { position: relative; display: grid; height: 14px; overflow: visible; border-radius: 999px; background: #e8eef5; grid-template-columns: var(--segments); }
+    .segbar span { margin: 0; min-width: 0; }
+    .seg-green { background: #38b26c; }
+    .seg-lightgreen { background: #77c66e; }
+    .seg-yellow { background: #f2c94c; }
+    .seg-orange { background: #f59e0b; }
+    .seg-red { background: #d95b43; }
+    .seg-darkred { background: #9b1c1c; }
+    .seg-start { border-radius: 999px 0 0 999px; }
+    .seg-end { border-radius: 0 999px 999px 0; }
+    .range-marker { position: absolute; top: -5px; left: var(--pos); width: 4px; height: 24px; border-radius: 999px; background: var(--navy); box-shadow: 0 0 0 3px #fff, 0 2px 8px rgba(31,41,51,.24); }
+    .range-legend { display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 4px; margin-top: 8px; color: var(--muted); font-size: 11px; font-weight: 800; }
+    .range-legend span { white-space: nowrap; }
+
+    .sources { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .sources li { padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; color: #415a77; font-size: 14px; }
+    .sources a { color: #315b7d; font-weight: 750; text-decoration: none; }
+    .sources a:hover { color: var(--teal); text-decoration: underline; }
+    .source-stamp { margin: -2px 0 10px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .quality-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+    .validation-banner { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; margin-bottom: 12px; padding: 13px 14px; border: 1px solid; border-radius: 8px; }
+    .validation-banner > div strong, .validation-banner > div span { display: block; }
+    .validation-banner > div strong { color: var(--navy); font-size: 14px; }
+    .validation-banner > div span { margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .validation-banner > b { font-size: 12px; }
+    .validation-banner ul { min-width: 45%; margin: 0; padding-left: 18px; }
+    .validation-banner li { margin: 0 0 4px; font-size: 11px; }
+    .validation-banner li:last-child { margin-bottom: 0; }
+    .validation-banner li b, .validation-banner li span { display: block; }
+    .validation-ok { border-color: #bde6d0; background: #edf9f3; }
+    .validation-ok > b { color: var(--green); }
+    .validation-warn { border-color: #f2d49b; background: #fff8e8; }
+    .validation-warn > b { color: #b45309; }
+    .quality-card { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; align-items: start; padding: 13px 14px; border: 1px solid var(--line); border-radius: 8px; background: #fbfdff; }
+    .quality-card div { min-width: 0; }
+    .quality-card strong { display: block; color: var(--navy); font-size: 13px; }
+    .quality-card span { display: block; margin-top: 2px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .quality-card > b { padding: 4px 8px; border-radius: 999px; font-size: 11px; white-space: nowrap; }
+    .quality-ok { color: #087f5b; background: #e7f7ef; }
+    .quality-warn { color: #b45309; background: #fff4df; }
+    .quality-card small { grid-column: 1 / -1; color: var(--muted); font-size: 10px; font-weight: 700; }
+    .note { margin: 12px 0 0; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 920px) {
+      .summary, .dashboard, .temperature-grid, .signal-grid, .sources, .quality-grid, .ai-risk-panel { grid-template-columns: 1fr; }
+      .ai-risk-components { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 12px 10px 30px; }
+      .hero { padding: 22px 16px 18px; }
+      .section { margin-top: 14px; padding: 16px 14px; }
+      h1 { margin-top: 14px; font-size: 40px; }
+      .eyebrow { font-size: 12px; }
+      .hero-metrics { gap: 8px; margin-top: 18px; }
+      .hero-metric { min-height: 82px; padding: 11px; }
+      .validation-banner { display: block; }
+      .validation-banner ul { margin-top: 10px; }
+      .hero-metric span { font-size: 11px; }
+      .hero-metric strong { font-size: 19px; }
+      .hero-metric em { font-size: 12px; }
+      .section h2 { font-size: 21px; margin-bottom: 12px; }
+      .section h3 { font-size: 16px; margin-top: 18px; }
+      .daily-change-strip, .watch-strip { grid-template-columns: 1fr; gap: 0; }
+      .monitoring-title { padding: 10px 0 5px; }
+      .daily-change-items, .watch-items { grid-template-columns: 1fr; }
+      .daily-change-item, .watch-item { padding: 10px 0; border-left: 0; border-top: 1px solid var(--line); }
+      .summary li { min-height: 0; padding: 13px; font-size: 14px; }
+      .dashboard-score { padding: 16px 12px; }
+      .risk-ring { width: min(238px, 100%); }
+      .risk-ring-band { width: 52px; min-height: 21px; font-size: 8px; transform: translate(-50%, -50%) rotate(var(--angle)) translateY(-94px) rotate(calc(-1 * var(--angle))); }
+      .risk-ring-marker { transform: translate(-50%, -50%) rotate(var(--score-angle)) translateY(-111px); }
+      .score-number { font-size: 42px; }
+      .temperature-card, .signal-card { padding: 12px; }
+      .bond-monitor { padding: 14px 12px; }
+      .bond-monitor-head { display: block; }
+      .bond-curve-legend { justify-content: flex-start; margin-top: 8px; }
+      .gold-driver-monitor { padding: 14px 12px; }
+      .gold-driver-head { display: block; }
+      .gold-driver-legend { justify-content: flex-start; margin-top: 8px; }
+      .gold-driver-metrics { grid-template-columns: 1fr; }
+      .gold-driver-metric, .gold-driver-metric:first-child, .gold-driver-metric:last-child { padding: 11px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .gold-driver-metric:last-child { border-bottom: 0; }
+      .gold-driver-state { display: block; }
+      .gold-driver-state span { display: block; margin-top: 3px; }
+      .temperature-card { min-height: 0; }
+      .metric-value { font-size: 19px; }
+      .signal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      th, td { padding: 10px 11px; font-size: 13px; }
+      th:first-child, td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background: #fff;
+        box-shadow: 1px 0 0 var(--line);
+      }
+      th:first-child {
+        z-index: 2;
+        background: #eef4f8;
+      }
+      td.num, th.num { text-align: right; }
+      .table-wrap { margin: 8px -2px 0; border: 1px solid var(--line); }
+      .table-wrap table { margin: 0; border: 0; border-radius: 0; }
+      .scroll-hint { display: block; }
+      .score-row { grid-template-columns: 1fr; }
+      .score-pill { justify-self: start; }
+      .score-row { padding: 12px; }
+      .range-legend { overflow-x: auto; padding-bottom: 2px; }
+      .sources li, .note { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">北京时间 2026 年 09 月 04 日｜美东 09 月 03 日收盘</div>
+      <h1>美股日报</h1>
+      <div class="hero-metrics"><div class="hero-metric"><span>道琼斯工业平均指数</span><strong>53,686.11</strong><em class="gain">+1.18%</em></div><div class="hero-metric"><span>标普 500</span><strong>7,747.71</strong><em class="gain">+1.06%</em></div><div class="hero-metric"><span>纳斯达克综合指数</span><strong>26,584.06</strong><em class="gain">+1.40%</em></div><div class="hero-metric"><span>罗素 2000</span><strong>2,968.27</strong><em class="gain">+0.51%</em></div></div>
+    </header>
+
+    <section class="section">
+      <h2>核心摘要与市场情绪</h2>
+      <div class="daily-monitoring">
+      <div class="daily-change-strip"><div class="monitoring-title">较昨日变化</div><div class="daily-change-items"><div class="daily-change-item"><span>市场情绪</span><strong>69/100</strong><b class="gain">较前日 +8</b></div><div class="daily-change-item"><span>AI 风险偏好</span><strong>60/100</strong><b class="gain">较前日 +11</b></div><div class="daily-change-item"><span>黄金驱动</span><strong>信号混合</strong><b class="neutral">较昨日：2Y -5 BP｜30Y−10Y +0 BP｜DXY -0.59%</b></div></div></div>
+      <div class="watch-strip"><div class="monitoring-title">下一交易日观察点</div><div class="watch-items"><div class="watch-item ">
+          <div><strong>短端再收紧</strong><b>观察中</b></div>
+          <span>当前 2Y 20 日 +9 BP</span><small>触发：升至 +10 BP 以上，且超长端利差未同步扩张</small>
+        </div><div class="watch-item ">
+          <div><strong>长端压力确认</strong><b>观察中</b></div>
+          <span>当前 30Y−10Y 20 日 -5 BP｜黄金 +6.70%</span><small>触发：利差扩张 +5 BP 以上且黄金同期上涨</small>
+        </div><div class="watch-item ">
+          <div><strong>美元压制黄金</strong><b>观察中</b></div>
+          <span>当前 DXY 20 日 -1.00%｜黄金 +6.70%</span><small>触发：DXY 上涨 1% 以上且黄金同期走弱</small>
+        </div></div></div>
+    </div>
+      
+      
+      <div class="dashboard">
+        <div class="dashboard-score score-constructive">
+          <span>总体风险偏好</span>
+          <div class="risk-ring" aria-label="Market Sentiment Score 69 out of 100; 中性偏乐观">
+            <span class="risk-ring-band " style="--angle:27.0deg">极端恐慌</span><span class="risk-ring-band " style="--angle:81.0deg">恐慌</span><span class="risk-ring-band " style="--angle:135.0deg">谨慎</span><span class="risk-ring-band " style="--angle:180.0deg">中性</span><span class="risk-ring-band current" style="--angle:225.0deg">中性偏乐观</span><span class="risk-ring-band " style="--angle:279.0deg">乐观</span><span class="risk-ring-band " style="--angle:333.0deg">极度乐观</span>
+            <i class="risk-ring-marker" style="--score-angle:248.4deg" aria-hidden="true"></i>
+            <div class="risk-ring-inner">
+              <div class="score-number">69<small>/100</small></div>
+              <div class="gauge-label">Market Sentiment Score</div>
+            </div>
+          </div>
+          <strong>中性偏乐观</strong>
+          <div class="score-badges">
+            <b class="gain">较前日 +8</b>
+            <span>Sentiment Model v4</span>
+          </div>
+          <div class="score-drivers">
+            <div><span>主要压力</span><b class="loss">估值与利率</b></div>
+            <div><span>主要支撑</span><b class="gain">金融、可选消费</b></div>
+          </div>
+        </div>
+        <div class="temperature-grid"><div class="temperature-card">
+              <div class="metric-head"><span>VIX</span><b class="metric-score">26/30</b></div>
+              <b class="metric-value">14.32</b>
+              <strong class="metric-rating gain">乐观</strong>
+              <em class="metric-sub">日变动 -5.79%</em>
+            </div><div class="temperature-card">
+              <div class="metric-head"><span>Put/Call Ratio</span><b class="metric-score">16/18</b></div>
+              <b class="metric-value">0.74</b>
+              <strong class="metric-rating gain">乐观</strong>
+              <em class="metric-sub">Equity PCR 0.62</em>
+            </div><div class="temperature-card">
+              <div class="metric-head"><span>Market Breadth</span><b class="metric-score">14/18</b></div>
+              <b class="metric-value">偏强</b>
+              <strong class="metric-rating gain">扩散</strong>
+              <em class="metric-sub">上涨 303｜下跌 199</em>
+            </div><div class="temperature-card">
+              <div class="metric-head"><span>SPY / RSP Ratio</span><b class="metric-score">4/12</b></div>
+              <b class="metric-value">3.514x</b>
+              <strong class="metric-rating gain">明显集中</strong>
+              <em class="metric-sub">20日均值 3.484x｜偏离 +0.85%</em>
+            </div><div class="temperature-card">
+              <div class="metric-head"><span>US10Y</span><b class="metric-score">5/16</b></div>
+              <b class="metric-value">4.77%</b>
+              <strong class="metric-rating gain">偏高</strong>
+              <em class="metric-sub">-2 BP</em>
+            </div><div class="temperature-card">
+              <div class="metric-head"><span>Sector Rotation</span><b class="metric-score">4/6</b></div>
+              <b class="metric-value">金融+可选消费</b>
+              <strong class="metric-rating gain">温和进攻</strong>
+              <em class="metric-sub">进攻-防御 +0.44 pct</em>
+            </div></div>
+      </div>
+      
+      <div class="ai-risk-panel ai-constructive">
+        <div class="ai-risk-summary">
+          <span>AI Risk Appetite Score</span>
+          <div class="ai-risk-score"><strong>60</strong><small>/100</small></div>
+          <b>偏强</b>
+          <em class="ai-divergence neutral">市场与 AI 差值 +9 分｜大致同步</em>
+          <p>AI 样本周涨跌中位数 +1.64%，月涨跌中位数 +0.41%；上涨广度日/周/月分别为 13/17、9/17、9/17。</p>
+        </div>
+        <div class="ai-risk-components"><div class="ai-risk-component">
+              <div><span>AI 上涨广度</span><b>18/30</b></div>
+              <i><em style="width:60.0%"></em></i>
+              <small>日 13/17｜周 9/17｜月 9/17</small>
+            </div><div class="ai-risk-component">
+              <div><span>相对标普强弱</span><b>11/20</b></div>
+              <i><em style="width:55.0%"></em></i>
+              <small>多周期超额 +0.49 pct</small>
+            </div><div class="ai-risk-component">
+              <div><span>周度趋势</span><b>12/20</b></div>
+              <i><em style="width:60.0%"></em></i>
+              <small>周涨跌中位数 +1.64%</small>
+            </div><div class="ai-risk-component">
+              <div><span>AI 硬件趋势</span><b>7/15</b></div>
+              <i><em style="width:46.7%"></em></i>
+              <small>周/月综合 -0.09%</small>
+            </div><div class="ai-risk-component">
+              <div><span>产业链扩散</span><b>12/15</b></div>
+              <i><em style="width:80.0%"></em></i>
+              <small>走强环节 5/6</small>
+            </div></div>
+      </div>
+    
+    </section>
+
+    <section class="section">
+      <h2>市场概览</h2>
+      <h3>指数</h3>
+      <div class="table-wrap compact"><table><thead><tr><th>资产</th><th class="num">09 月 03 日收盘</th><th class="num">日表现</th><th class="num">周</th><th class="num">月</th></tr></thead><tbody><tr><td>道琼斯工业平均指数</td><td class="num">53,686.11</td><td class="num gain">+1.18%</td><td class="num gain">+0.24%</td><td class="num gain">+0.94%</td></tr><tr><td>标普 500</td><td class="num">7,747.71</td><td class="num gain">+1.06%</td><td class="num gain">+0.47%</td><td class="num gain">+0.80%</td></tr><tr><td>纳斯达克综合指数</td><td class="num">26,584.06</td><td class="num gain">+1.40%</td><td class="num gain">+0.69%</td><td class="num gain">+0.81%</td></tr><tr><td>罗素 2000</td><td class="num">2,968.27</td><td class="num gain">+0.51%</td><td class="num loss">-0.14%</td><td class="num gain">+0.40%</td></tr><tr><td>NOBL（标普 500 股息贵族 ETF）</td><td class="num">58.06</td><td class="num gain">+0.31%</td><td class="num loss">-0.48%</td><td class="num gain">+0.33%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <details class="period-chart collapsible-chart" aria-label="主要指数年内表现横向柱状图">
+      <summary class="period-chart-head">
+        <h3>主要指数年度表现</h3>
+        <div class="period-chart-legend"><span class="legend-ytd">年初至今（YTD）</span></div>
+      </summary>
+      <div class="period-bars"><div class="period-bar-row">
+              <div class="period-bar-label">道琼斯工业平均指数</div>
+              <div class="period-bar-track" style="--zero:0.00%">
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:59.69%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+11.70%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">标普 500</div>
+              <div class="period-bar-track" style="--zero:0.00%">
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:67.24%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+13.18%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">纳斯达克综合指数</div>
+              <div class="period-bar-track" style="--zero:0.00%">
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:73.37%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+14.38%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">罗素 2000</div>
+              <div class="period-bar-track" style="--zero:0.00%">
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:100.00%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+19.60%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">NOBL（标普 500 股息贵族 ETF）</div>
+              <div class="period-bar-track" style="--zero:0.00%">
+                <span class="period-bar-fill series-ytd gain" style="--start:0.00%;--width:59.08%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+11.58%</strong></div>
+            </div></div>
+    </details>
+      <h3>标普 500 11 个板块行情</h3>
+      <div class="table-wrap wide"><table><thead><tr><th class="num">排名</th><th>板块</th><th>ETF</th><th class="num">日</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td class="num">1</td><td>金融</td><td>XLF</td><td class="num gain">+1.56%</td><td class="num gain">+0.79%</td><td class="num gain">+1.47%</td><td class="num gain">+6.92%</td></tr><tr><td class="num">2</td><td>可选消费</td><td>XLY</td><td class="num gain">+1.39%</td><td class="num loss">-0.64%</td><td class="num loss">-0.11%</td><td class="num loss">-2.47%</td></tr><tr><td class="num">3</td><td>信息技术</td><td>XLK</td><td class="num gain">+1.29%</td><td class="num gain">+0.15%</td><td class="num loss">-0.28%</td><td class="num gain">+29.17%</td></tr><tr><td class="num">4</td><td>房地产</td><td>XLRE</td><td class="num gain">+1.19%</td><td class="num loss">-0.52%</td><td class="num gain">+0.32%</td><td class="num gain">+9.67%</td></tr><tr><td class="num">5</td><td>工业</td><td>XLI</td><td class="num gain">+1.03%</td><td class="num loss">-1.46%</td><td class="num loss">-0.33%</td><td class="num gain">+12.53%</td></tr><tr><td class="num">6</td><td>通信服务</td><td>XLC</td><td class="num gain">+0.85%</td><td class="num gain">+0.35%</td><td class="num gain">+1.72%</td><td class="num loss">-3.69%</td></tr><tr><td class="num">7</td><td>公用事业</td><td>XLU</td><td class="num gain">+0.84%</td><td class="num gain">+0.70%</td><td class="num gain">+1.89%</td><td class="num gain">+0.80%</td></tr><tr><td class="num">8</td><td>医疗保健</td><td>XLV</td><td class="num gain">+0.18%</td><td class="num gain">+1.23%</td><td class="num gain">+1.59%</td><td class="num gain">+11.93%</td></tr><tr><td class="num">9</td><td>必需消费</td><td>XLP</td><td class="num loss">-0.32%</td><td class="num loss">-0.22%</td><td class="num gain">+0.33%</td><td class="num gain">+9.76%</td></tr><tr><td class="num">10</td><td>材料</td><td>XLB</td><td class="num loss">-0.62%</td><td class="num loss">-1.05%</td><td class="num loss">-0.13%</td><td class="num gain">+16.03%</td></tr><tr><td class="num">11</td><td>能源</td><td>XLE</td><td class="num loss">-0.74%</td><td class="num gain">+3.10%</td><td class="num gain">+1.03%</td><td class="num gain">+44.53%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <details class="period-chart sector-ytd-chart collapsible-chart" aria-label="标普 500 十一个板块年度表现横向柱状图">
+      <summary class="period-chart-head">
+        <h3>标普 500 11 个板块年度表现</h3>
+        <div class="period-chart-legend"><span class="legend-ytd">年初至今（YTD）</span></div>
+      </summary>
+      <div class="period-bars"><div class="period-bar-row">
+              <div class="period-bar-label">金融 <span class="sector-bar-ticker">XLF</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:14.35%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+6.92%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">可选消费 <span class="sector-bar-ticker">XLY</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd loss" style="--start:2.53%;--width:5.12%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-2.47%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">信息技术 <span class="sector-bar-ticker">XLK</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:60.49%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+29.17%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">房地产 <span class="sector-bar-ticker">XLRE</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:20.05%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+9.67%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">工业 <span class="sector-bar-ticker">XLI</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:25.99%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+12.53%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">通信服务 <span class="sector-bar-ticker">XLC</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:7.65%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-3.69%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">公用事业 <span class="sector-bar-ticker">XLU</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:1.66%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+0.80%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">医疗保健 <span class="sector-bar-ticker">XLV</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:24.74%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+11.93%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">必需消费 <span class="sector-bar-ticker">XLP</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:20.24%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+9.76%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">材料 <span class="sector-bar-ticker">XLB</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:33.24%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+16.03%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">能源 <span class="sector-bar-ticker">XLE</span></div>
+              <div class="period-bar-track" style="--zero:7.65%">
+                <span class="period-bar-fill series-ytd gain" style="--start:7.65%;--width:92.35%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+44.53%</strong></div>
+            </div></div>
+    </details>
+      <p class="note">注：板块涨跌幅采用 Select Sector SPDR ETF 作为标普 500 行业板块代理，ETF 代理口径与标普 500 GICS 行业指数可能存在细微差异。</p>
+      <h3>AI 产业链代表股票表现</h3>
+      <div class="table-wrap wide"><table><thead><tr><th>环节</th><th>代表股票</th><th class="num">09 月 03 日收盘</th><th class="num">日表现</th><th class="num">周</th><th class="num">月</th><th class="num">年</th><th>解读</th></tr></thead><tbody><tr><td>AI CapEx</td><td>Alphabet（GOOGL）<span class="mega-tag">美股七巨头</span></td><td class="num">342.48</td><td class="num gain">+1.59%</td><td class="num loss">-1.19%</td><td class="num gain">+0.92%</td><td class="num gain">+9.42%</td><td>搜索与云平台核心资本开支方，关注 AI 投入回报</td></tr><tr><td>AI CapEx</td><td>Amazon（AMZN）<span class="mega-tag">美股七巨头</span></td><td class="num">258.90</td><td class="num gain">+1.54%</td><td class="num loss">-2.83%</td><td class="num loss">-0.33%</td><td class="num gain">+12.17%</td><td>AWS 与数据中心资本开支代表，体现 AI 基建投入预期</td></tr><tr><td>AI CapEx</td><td>Meta（META）<span class="mega-tag">美股七巨头</span></td><td class="num">610.68</td><td class="num gain">+3.01%</td><td class="num gain">+5.65%</td><td class="num gain">+6.70%</td><td class="num loss">-7.49%</td><td>AI 基础设施与算力投入代表，资本开支影响估值</td></tr><tr><td>AI CapEx</td><td>Microsoft（MSFT）<span class="mega-tag">美股七巨头</span></td><td class="num">510.12</td><td class="num gain">+2.68%</td><td class="num loss">-0.66%</td><td class="num gain">+0.56%</td><td class="num gain">+5.48%</td><td>云与 AI 数据中心资本开支核心权重，影响大型科技定价</td></tr><tr><td>AI S CapEx</td><td>Tesla（TSLA）<span class="mega-tag">美股七巨头</span></td><td class="num">376.37</td><td class="num gain volatile">+5.42%</td><td class="num gain">+7.92%</td><td class="num gain">+2.29%</td><td class="num loss">-16.31%</td><td>自动驾驶、机器人及算力投入代表，资本开支与兑现节奏并重</td></tr><tr><td>AI S CapEx</td><td>Oracle（ORCL）</td><td class="num">154.04</td><td class="num gain volatile">+5.69%</td><td class="num gain">+2.11%</td><td class="num gain">+3.30%</td><td class="num loss">-20.97%</td><td>云基础设施与 AI 数据中心资本开支代表，关注订单与扩容节奏</td></tr><tr><td>AI 芯片</td><td>NVIDIA（NVDA）<span class="mega-tag">美股七巨头</span></td><td class="num">228.41</td><td class="num gain">+1.78%</td><td class="num gain">+4.99%</td><td class="num gain">+3.45%</td><td class="num gain">+22.47%</td><td>核心算力龙头决定 AI 硬件情绪</td></tr><tr><td>AI 芯片</td><td>AMD（AMD）</td><td class="num">456.22</td><td class="num loss">-0.18%</td><td class="num loss">-2.01%</td><td class="num loss">-3.08%</td><td class="num gain">+113.03%</td><td>高弹性芯片股反映 AI 交易风险偏好</td></tr><tr><td>芯片</td><td>Intel（INTC）</td><td class="num">91.67</td><td class="num gain">+1.80%</td><td class="num gain">+2.46%</td><td class="num gain">+2.41%</td><td class="num gain">+148.43%</td><td>CPU、晶圆制造与 AI 加速芯片代表，关注产品兑现和代工进展</td></tr><tr><td>晶圆代工</td><td>台积电 ADR（TSM）</td><td class="num">417.01</td><td class="num gain">+0.36%</td><td class="num loss">-0.12%</td><td class="num gain">+0.41%</td><td class="num gain">+37.22%</td><td>代工链跟随半导体景气预期波动</td></tr><tr><td>存储</td><td>Micron（MU）</td><td class="num">958.16</td><td class="num gain">+0.22%</td><td class="num gain">+2.71%</td><td class="num loss">-0.06%</td><td class="num gain">+235.71%</td><td>存储链对 AI 服务器需求和周期位置敏感</td></tr><tr><td>存储</td><td>SanDisk（SNDK）</td><td class="num">1,554.99</td><td class="num gain">+0.10%</td><td class="num gain">+4.71%</td><td class="num loss">-0.75%</td><td class="num gain">+555.06%</td><td>高弹性存储标的，波动通常高于大盘</td></tr><tr><td>存储</td><td>SK hynix ADR（SKHY）</td><td class="num">163.68</td><td class="num loss">-0.79%</td><td class="num gain">+1.64%</td><td class="num loss">-0.55%</td><td class="num loss">-2.58%</td><td>HBM 与高端存储代表，跟随 AI 内存链景气波动</td></tr><tr><td>光模块/光通信</td><td>Coherent（COHR）</td><td class="num">264.41</td><td class="num loss">-1.57%</td><td class="num loss">-5.30%</td><td class="num loss">-4.83%</td><td class="num gain">+43.26%</td><td>光通信链反映 AI 数据中心互联需求</td></tr><tr><td>光模块/光通信</td><td>Lumentum（LITE）</td><td class="num">847.37</td><td class="num loss">-2.67%</td><td class="num loss">-5.32%</td><td class="num loss">-7.37%</td><td class="num gain">+129.90%</td><td>光器件方向跟随 AI 硬件情绪波动</td></tr><tr><td>AI 应用/软件</td><td>Palantir（PLTR）</td><td class="num">182.53</td><td class="num gain volatile">+7.71%</td><td class="num loss">-2.02%</td><td class="num loss">-2.07%</td><td class="num gain">+2.69%</td><td>AI 软件代表，短线受估值和获利盘影响</td></tr><tr><td>AI 应用/软件</td><td>Apple（AAPL）<span class="mega-tag">美股七巨头</span></td><td class="num">328.21</td><td class="num gain">+1.00%</td><td class="num gain">+2.66%</td><td class="num gain">+3.59%</td><td class="num gain">+20.73%</td><td>端侧 AI 与消费电子代表，纳入应用层观察</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <details class="period-chart asset-ytd-chart collapsible-chart" aria-label="AI 产业链代表股票年涨幅横向柱状图">
+      <summary class="period-chart-head">
+        <h3>AI 产业链年涨幅</h3>
+        <div class="period-chart-legend"><span class="legend-ytd">年初至今（YTD）</span></div>
+      </summary>
+      <div class="period-bars"><div class="period-bar-row">
+              <div class="period-bar-label">Alphabet（GOOGL）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:1.64%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+9.42%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Amazon（AMZN）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:2.11%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+12.17%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Meta（META）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd loss" style="--start:2.34%;--width:1.30%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-7.49%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Microsoft（MSFT）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:0.95%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+5.48%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Tesla（TSLA）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.81%;--width:2.83%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-16.31%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Oracle（ORCL）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:3.64%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-20.97%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">NVIDIA（NVDA）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:3.90%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+22.47%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">AMD（AMD）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:19.62%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+113.03%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Intel（INTC）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:25.77%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+148.43%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">台积电 ADR（TSM）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:6.46%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+37.22%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Micron（MU）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:40.92%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+235.71%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">SanDisk（SNDK）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:96.36%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+555.06%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">SK hynix ADR（SKHY）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd loss" style="--start:3.19%;--width:0.80%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-2.58%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Coherent（COHR）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:7.51%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+43.26%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Lumentum（LITE）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:22.55%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+129.90%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Palantir（PLTR）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:0.80%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+2.69%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Apple（AAPL）</div>
+              <div class="period-bar-track" style="--zero:3.64%">
+                <span class="period-bar-fill series-ytd gain" style="--start:3.64%;--width:3.60%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+20.73%</strong></div>
+            </div></div>
+    </details>
+      <p class="note">注：AI 产业链代表股票为观察样本，不覆盖全部相关公司；每个产业链环节最多展示 3 只股票。</p>
+      <h3>美债美元</h3>
+      <div class="table-wrap wide"><table><thead><tr><th>资产</th><th class="num">09 月 03 日水平</th><th class="num">日变动</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td>1 年期美债收益率</td><td class="num">4.11%</td><td class="num loss volatile">-5 BP</td><td class="num loss">-4 BP</td><td class="num loss">-5 BP</td><td class="num gain">+63 BP</td></tr><tr><td>2 年期美债收益率</td><td class="num">4.34%</td><td class="num loss volatile">-5 BP</td><td class="num neutral">+0 BP</td><td class="num neutral">+0 BP</td><td class="num gain">+87 BP</td></tr><tr><td>10 年期美债收益率</td><td class="num">4.77%</td><td class="num loss">-2 BP</td><td class="num gain">+4 BP</td><td class="num gain">+2 BP</td><td class="num gain">+59 BP</td></tr><tr><td>30 年期美债收益率</td><td class="num">5.25%</td><td class="num loss">-2 BP</td><td class="num gain">+3 BP</td><td class="num neutral">+0 BP</td><td class="num gain">+41 BP</td></tr><tr><td>美元指数</td><td class="num">98.972</td><td class="num loss">-0.59%</td><td class="num loss">-0.73%</td><td class="num loss">-0.46%</td><td class="num gain">+0.70%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <div class="bond-monitor bond-curve-only" role="img" aria-label="1年期、2年期、10年期与30年期美债收益率曲线对比">
+      <div class="bond-monitor-head"><div><h3>利率曲线</h3><p>同源 Treasury 曲线｜当日、一月前、三月前、半年前</p></div><div class="bond-curve-legend"><span><i style="background:#0f766e"></i>当日 <small>09-03</small></span><span><i style="background:#3b82c4"></i>一月前 <small>08-04</small></span><span><i style="background:#b88718"></i>三月前 <small>06-05</small></span><span><i style="background:#b54750"></i>半年前 <small>03-06</small></span></div></div>
+      <svg class="yield-curve-chart" viewBox="0 0 760 330"><line x1="54" y1="296.0" x2="742" y2="296.0"></line><text x="4" y="300.0">3.5%</text><line x1="54" y1="157.0" x2="742" y2="157.0"></line><text x="4" y="161.0">4.4%</text><line x1="54" y1="18.0" x2="742" y2="18.0"></line><text x="4" y="22.0">5.3%</text><circle cx="54.0" cy="201.8" r="3.5" fill="#0f766e"><title>当日 2026-09-03｜1Y 4.11%</title></circle><circle cx="283.3" cy="166.3" r="3.5" fill="#0f766e"><title>当日 2026-09-03｜2Y 4.34%</title></circle><circle cx="512.7" cy="99.9" r="3.5" fill="#0f766e"><title>当日 2026-09-03｜10Y 4.77%</title></circle><circle cx="742.0" cy="25.7" r="3.5" fill="#0f766e"><title>当日 2026-09-03｜30Y 5.25%</title></circle><polyline points="54.0,201.8 283.3,166.3 512.7,99.9 742.0,25.7" stroke="#0f766e"></polyline><circle cx="54.0" cy="212.6" r="3.5" fill="#3b82c4"><title>一月前 2026-08-04｜1Y 4.04%</title></circle><circle cx="283.3" cy="187.9" r="3.5" fill="#3b82c4"><title>一月前 2026-08-04｜2Y 4.20%</title></circle><circle cx="512.7" cy="121.5" r="3.5" fill="#3b82c4"><title>一月前 2026-08-04｜10Y 4.63%</title></circle><circle cx="742.0" cy="36.5" r="3.5" fill="#3b82c4"><title>一月前 2026-08-04｜30Y 5.18%</title></circle><polyline points="54.0,212.6 283.3,187.9 512.7,121.5 742.0,36.5" stroke="#3b82c4"></polyline><circle cx="54.0" cy="237.3" r="3.5" fill="#b88718"><title>三月前 2026-06-05｜1Y 3.88%</title></circle><circle cx="283.3" cy="192.5" r="3.5" fill="#b88718"><title>三月前 2026-06-05｜2Y 4.17%</title></circle><circle cx="512.7" cy="133.8" r="3.5" fill="#b88718"><title>三月前 2026-06-05｜10Y 4.55%</title></circle><circle cx="742.0" cy="62.8" r="3.5" fill="#b88718"><title>三月前 2026-06-05｜30Y 5.01%</title></circle><polyline points="54.0,237.3 283.3,192.5 512.7,133.8 742.0,62.8" stroke="#b88718"></polyline><circle cx="54.0" cy="288.3" r="3.5" fill="#b54750"><title>半年前 2026-03-06｜1Y 3.55%</title></circle><circle cx="283.3" cy="286.7" r="3.5" fill="#b54750"><title>半年前 2026-03-06｜2Y 3.56%</title></circle><circle cx="512.7" cy="195.6" r="3.5" fill="#b54750"><title>半年前 2026-03-06｜10Y 4.15%</title></circle><circle cx="742.0" cy="99.9" r="3.5" fill="#b54750"><title>半年前 2026-03-06｜30Y 4.77%</title></circle><polyline points="54.0,288.3 283.3,286.7 512.7,195.6 742.0,99.9" stroke="#b54750"></polyline><text x="54.0" y="322" text-anchor="middle">1Y</text><text x="283.3" y="322" text-anchor="middle">2Y</text><text x="512.7" y="322" text-anchor="middle">10Y</text><text x="742.0" y="322" text-anchor="middle">30Y</text></svg>
+    </div>
+      <h3>商品与加密资产</h3>
+      <div class="table-wrap"><table><thead><tr><th>资产</th><th class="num">09 月 03 日结算/收盘</th><th class="num">日涨跌幅</th><th class="num">周</th><th class="num">月</th><th class="num">年</th></tr></thead><tbody><tr><td>COMEX 黄金</td><td class="num">4,526.20 美元/盎司</td><td class="num gain">+3.66%</td><td class="num gain">+1.07%</td><td class="num gain">+2.15%</td><td class="num gain">+4.64%</td></tr><tr><td>WTI 原油</td><td class="num">91.80 美元/桶</td><td class="num gain">+0.87%</td><td class="num gain">+10.07%</td><td class="num gain">+7.04%</td><td class="num gain">+59.87%</td></tr><tr><td>Brent 原油</td><td class="num">95.91 美元/桶</td><td class="num gain">+0.29%</td><td class="num gain">+7.39%</td><td class="num gain">+5.99%</td><td class="num gain">+57.62%</td></tr><tr><td>COMEX 铜</td><td class="num">6.68 美元/磅</td><td class="num gain">+2.70%</td><td class="num gain">+1.74%</td><td class="num gain">+1.26%</td><td class="num gain">+18.59%</td></tr><tr><td>比特币</td><td class="num">77,300.48 美元</td><td class="num loss">-0.13%</td><td class="num loss">-0.47%</td><td class="num loss">-1.59%</td><td class="num loss">-11.67%</td></tr><tr><td>以太坊</td><td class="num">2,391.50 美元</td><td class="num loss">-1.09%</td><td class="num loss">-1.09%</td><td class="num loss">-3.05%</td><td class="num loss">-19.40%</td></tr></tbody></table></div><div class="scroll-hint">左右滑动查看更多</div>
+      <details class="period-chart asset-ytd-chart collapsible-chart" aria-label="商品与加密资产年涨幅横向柱状图">
+      <summary class="period-chart-head">
+        <h3>商品与加密资产年涨幅</h3>
+        <div class="period-chart-legend"><span class="legend-ytd">年初至今（YTD）</span></div>
+      </summary>
+      <div class="period-bars"><div class="period-bar-row">
+              <div class="period-bar-label">COMEX 黄金</div>
+              <div class="period-bar-track" style="--zero:24.47%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.47%;--width:5.85%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+4.64%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">WTI 原油</div>
+              <div class="period-bar-track" style="--zero:24.47%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.47%;--width:75.53%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+59.87%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">Brent 原油</div>
+              <div class="period-bar-track" style="--zero:24.47%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.47%;--width:72.69%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+57.62%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">COMEX 铜</div>
+              <div class="period-bar-track" style="--zero:24.47%">
+                <span class="period-bar-fill series-ytd gain" style="--start:24.47%;--width:23.45%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="gain">+18.59%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">比特币</div>
+              <div class="period-bar-track" style="--zero:24.47%">
+                <span class="period-bar-fill series-ytd loss" style="--start:9.75%;--width:14.72%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-11.67%</strong></div>
+            </div><div class="period-bar-row">
+              <div class="period-bar-label">以太坊</div>
+              <div class="period-bar-track" style="--zero:24.47%">
+                <span class="period-bar-fill series-ytd loss" style="--start:0.00%;--width:24.47%"></span>
+              </div>
+              <div class="period-bar-values"><strong class="loss">-19.40%</strong></div>
+            </div></div>
+    </details>
+      <div class="gold-driver-monitor" role="img" aria-label="黄金价格、超长端压力代理与1年期美债收益率六个月走势，以及 Fed、长端和美元驱动读数">
+      <div class="gold-driver-head"><div><h3>黄金驱动监控</h3><p>近六个月：黄金价格（左轴）、30Y−10Y 利差（右轴）与 1Y Treasury 收益率（下方独立刻度）</p></div><div class="gold-driver-legend"><span><i class="gold-line"></i>COMEX 黄金</span><span><i class="spread-line"></i>30Y−10Y</span><span><i class="one-year-line"></i>1Y Treasury</span></div></div>
+      <svg class="gold-driver-chart" viewBox="0 0 920 410"><line x1="64" y1="20.0" x2="856" y2="20.0"></line><text class="gold-axis" x="4" y="24.0">$5,329</text><text class="spread-axis" x="916" y="24.0" text-anchor="end">68 BP</text><line x1="64" y1="134.0" x2="856" y2="134.0"></line><text class="gold-axis" x="4" y="138.0">$4,608</text><text class="spread-axis" x="916" y="138.0" text-anchor="end">54 BP</text><line x1="64" y1="248.0" x2="856" y2="248.0"></line><text class="gold-axis" x="4" y="252.0">$3,886</text><text class="spread-axis" x="916" y="252.0" text-anchor="end">41 BP</text><polyline class="gold-series" points="64.0,53.0 70.2,61.7 76.5,48.9 82.7,57.6 88.9,35.7 95.2,45.6 101.4,53.7 107.7,63.7 113.9,73.0 120.1,71.9 126.4,89.4 132.6,135.1 138.8,139.9 145.1,166.2 151.3,166.9 157.5,143.1 163.8,170.7 170.0,152.3 176.3,146.9 182.5,127.7 188.7,106.3 195.0,127.1 201.2,126.2 207.4,126.2 213.7,111.6 219.9,104.8 226.1,109.6 232.4,112.7 238.6,99.7 244.9,103.6 251.1,105.9 257.3,94.5 263.6,102.6 269.8,119.7 276.0,114.3 282.3,118.6 288.5,115.9 294.7,123.3 301.0,136.6 307.2,143.9 313.4,132.9 319.7,130.5 325.9,147.9 332.2,142.2 338.4,122.3 344.6,119.4 350.9,116.2 357.1,116.5 363.3,122.9 369.6,119.8 375.8,122.9 382.0,142.2 388.3,142.7 394.5,150.0 400.8,146.1 407.0,144.7 413.2,147.7 419.5,150.9 425.7,159.3 431.9,151.1 438.2,141.4 444.4,154.9 450.6,152.7 456.9,161.0 463.1,154.8 469.4,176.7 475.6,176.9 481.8,188.9 488.1,212.9 494.3,215.7 500.5,196.0 506.8,178.2 513.0,177.7 519.2,173.3 525.5,194.6 531.7,201.3 538.0,209.5 544.2,231.5 550.4,225.2 556.7,217.6 562.9,226.5 569.1,226.4 575.4,219.2 581.6,212.2 587.8,205.5 594.1,207.0 600.3,218.8 606.6,209.4 612.8,213.6 619.0,230.5 625.3,220.3 631.5,223.0 637.7,232.3 644.0,228.0 650.2,228.4 656.4,218.8 662.7,206.8 668.9,222.6 675.1,219.3 681.4,218.2 687.6,224.3 693.9,224.5 700.1,214.2 706.3,222.2 712.6,224.7 718.8,214.9 725.0,191.2 731.3,191.8 737.5,176.2 743.7,172.8 750.0,169.5 756.2,165.4 762.5,172.6 768.7,169.9 774.9,164.0 781.2,172.2 787.4,152.7 793.6,148.4 799.9,131.4 806.1,128.8 812.3,129.2 818.6,135.5 824.8,133.7 831.1,154.5 837.3,161.9 843.5,175.0 849.8,172.1 856.0,146.9"><title>COMEX 黄金</title></polyline><polyline class="spread-series" points="64.0,62.2 70.2,79.1 76.5,70.7 82.7,87.6 88.9,62.2 95.2,45.3 101.4,79.1 107.7,70.7 113.9,62.2 120.1,45.3 126.4,70.7 132.6,104.4 138.8,112.9 145.1,112.9 151.3,129.8 157.5,121.3 163.8,163.6 170.0,138.2 176.3,121.3 182.5,104.4 188.7,104.4 195.0,112.9 201.2,129.8 207.4,112.9 213.7,87.6 219.9,79.1 226.1,87.6 232.4,87.6 238.6,79.1 244.9,87.6 251.1,79.1 257.3,70.7 263.6,70.7 269.8,96.0 276.0,87.6 282.3,104.4 288.5,87.6 294.7,96.0 301.0,104.4 307.2,121.3 313.4,104.4 319.7,104.4 325.9,112.9 332.2,129.8 338.4,104.4 344.6,121.3 350.9,112.9 357.1,121.3 363.3,112.9 369.6,112.9 375.8,129.8 382.0,146.7 388.3,146.7 394.5,163.6 400.8,138.2 407.0,146.7 413.2,163.6 419.5,146.7 425.7,146.7 431.9,146.7 438.2,138.2 444.4,155.1 450.6,163.6 456.9,172.0 463.1,172.0 469.4,205.8 475.6,197.3 481.8,188.9 488.1,188.9 494.3,172.0 500.5,180.4 506.8,172.0 513.0,172.0 519.2,222.7 525.5,222.7 531.7,222.7 538.0,222.7 544.2,214.2 550.4,205.8 556.7,180.4 562.9,188.9 569.1,197.3 575.4,180.4 581.6,180.4 587.8,163.6 594.1,172.0 600.3,172.0 606.6,163.6 612.8,172.0 619.0,188.9 625.3,172.0 631.5,146.7 637.7,155.1 644.0,163.6 650.2,163.6 656.4,172.0 662.7,188.9 668.9,205.8 675.1,197.3 681.4,197.3 687.6,188.9 693.9,146.7 700.1,146.7 706.3,155.1 712.6,146.7 718.8,129.8 725.0,138.2 731.3,146.7 737.5,138.2 743.7,146.7 750.0,138.2 756.2,121.3 762.5,104.4 768.7,112.9 774.9,96.0 781.2,112.9 787.4,138.2 793.6,138.2 799.9,146.7 806.1,146.7 812.3,146.7 818.6,155.1 824.8,155.1 831.1,180.4 837.3,172.0 843.5,188.9 849.8,188.9 856.0,188.9"><title>30Y−10Y 利差</title></polyline><text class="one-year-title" x="64" y="282">1Y Treasury 收益率</text><line class="one-year-grid" x1="64" y1="292.0" x2="856" y2="292.0"></line><text class="one-year-axis" x="4" y="296.0">4.26%</text><line class="one-year-grid" x1="64" y1="366.0" x2="856" y2="366.0"></line><text class="one-year-axis" x="4" y="370.0">3.47%</text><polyline class="one-year-series" points="64.0,356.0 70.2,355.0 76.5,358.8 82.7,357.9 88.9,357.9 95.2,354.1 101.4,348.4 107.7,348.4 113.9,350.3 120.1,351.3 126.4,346.5 132.6,341.8 138.8,335.2 145.1,338.9 151.3,334.2 157.5,338.0 163.8,332.3 170.0,338.0 176.3,343.7 182.5,346.5 188.7,346.5 195.0,346.5 201.2,342.7 207.4,346.5 213.7,345.6 219.9,346.5 226.1,344.6 232.4,344.6 238.6,343.7 244.9,344.6 251.1,345.6 257.3,350.3 263.6,349.4 269.8,345.6 276.0,345.6 282.3,344.6 288.5,347.5 294.7,345.6 301.0,343.7 307.2,339.9 313.4,342.7 319.7,341.8 325.9,337.1 332.2,338.0 338.4,341.8 344.6,338.9 350.9,339.9 357.1,336.1 363.3,335.2 369.6,336.1 375.8,336.1 382.0,333.3 388.3,334.2 394.5,332.3 400.8,336.1 407.0,332.3 413.2,329.5 419.5,333.3 425.7,335.2 431.9,335.2 438.2,336.1 444.4,332.3 450.6,333.3 456.9,331.4 463.1,333.3 469.4,327.6 475.6,330.4 481.8,325.7 488.1,325.7 494.3,330.4 500.5,329.5 506.8,331.4 513.0,331.4 519.2,318.1 525.5,316.2 531.7,312.4 538.0,315.3 544.2,317.2 550.4,320.0 556.7,321.9 562.9,319.1 569.1,318.1 575.4,316.2 581.6,320.0 587.8,320.9 594.1,310.5 600.3,310.5 606.6,314.3 612.8,310.5 619.0,304.8 625.3,314.3 631.5,319.1 637.7,317.2 644.0,315.3 650.2,313.4 656.4,308.6 662.7,305.8 668.9,302.0 675.1,303.0 681.4,303.0 687.6,307.7 693.9,312.4 700.1,312.4 706.3,308.6 712.6,309.6 718.8,312.4 725.0,313.4 731.3,310.5 737.5,315.3 743.7,312.4 750.0,313.4 756.2,316.2 762.5,319.1 768.7,318.1 774.9,316.2 781.2,317.2 787.4,316.2 793.6,317.2 799.9,313.4 806.1,312.4 812.3,315.3 818.6,314.3 824.8,312.4 831.1,302.0 837.3,301.1 843.5,299.2 849.8,301.1 856.0,305.8"><title>1Y Treasury 收益率</title></polyline><text x="64.0" y="401" text-anchor="middle">03-04</text><text x="325.9" y="401" text-anchor="middle">05-04</text><text x="594.1" y="401" text-anchor="middle">07-07</text><text x="856.0" y="401" text-anchor="middle">09-03</text></svg>
+      <div class="gold-driver-metrics"><div class="gold-driver-metric">
+          <span>Fed 政策预期代理｜2Y Treasury</span>
+          <strong>4.34%</strong>
+          <b class="move-up">20 日 +9 BP｜上行</b>
+          <small>短端收益率变化，用于观察政策预期重新定价。</small>
+        </div><div class="gold-driver-metric">
+          <span>超长端压力代理｜30Y−10Y</span>
+          <strong>48 BP</strong>
+          <b class="move-down">20 日 -5 BP｜下行</b>
+          <small>利差扩大不等同期限溢价上升，但可用于观察超长端相对压力。</small>
+        </div><div class="gold-driver-metric">
+          <span>美元强弱/信心代理｜DXY</span>
+          <strong>98.972</strong>
+          <b class="move-down">20 日 -1.00%｜下行</b>
+          <small>并非美国主权信用利差，仅观察美元强弱与市场信心变化。</small>
+        </div></div>
+      <div class="gold-driver-state state-neutral"><strong>当前状态：信号混合</strong><span>短端、长端与美元信号尚未形成单一主导组合，暂以并列观察为主。</span></div>
+      <p class="gold-driver-date">黄金/美债共同数据截至 2026-09-03｜黄金、Treasury 与 DXY 数据日期已对齐</p>
+    </div>
+      <p class="note">注：自动生成版本会优先使用公开行情源；不同数据源、时区、结算价和盘后报价可能存在差异，发布前建议人工复核关键价格。</p>
+    </section>
+    <section class="section score-method">
+      <details>
+        <summary><strong>评分体系说明</strong><span>Sentiment Model v4｜点击展开</span></summary>
+        <div class="score-bars"><div class="score-row">
+              <div><strong class="score-name">VIX <i class="help-tip" data-tip="VIX 衡量标普 500 期权隐含波动率，越高代表避险和波动预期越强。">?</i></strong><span>权重 30</span></div>
+              <div>
+                <div class="segbar" style="--segments:13fr 3fr 4fr 5fr 5fr 10fr; --pos:24%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-red "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="range-legend" style="--cols:6"><span>&lt;13</span><span>13-16</span><span>16-20</span><span>20-25</span><span>25-30</span><span>&gt;30</span></div>
+                <div class="score-meta">14.32｜乐观</div>
+              </div>
+              <div class="score-pill">26 / 30</div>
+            </div><div class="score-row">
+              <div><strong class="score-name">Put/Call Ratio <i class="help-tip" data-tip="Put/Call Ratio 反映看跌期权与看涨期权成交关系。本期采用 Cboe Current Market Statistics 的收盘统计。">?</i></strong><span>权重 18</span></div>
+              <div>
+                <div class="segbar" style="--segments:6fr 2fr 2fr 2fr 4fr; --pos:28%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="range-legend" style="--cols:5"><span>&lt;0.60</span><span>0.60-0.80</span><span>0.80-1.00</span><span>1.00-1.20</span><span>&gt;1.20</span></div>
+                <div class="score-meta">0.74｜乐观</div>
+              </div>
+              <div class="score-pill">16 / 18</div>
+            </div><div class="score-row">
+              <div><strong class="score-name">Market Breadth <i class="help-tip" data-tip="Market Breadth 使用标普 500 成分股上涨家数占比；覆盖率不足 90% 时自动退回行业板块代理并标注备用口径。">?</i></strong><span>权重 18</span></div>
+              <div>
+                <div class="segbar" style="--segments:3fr 1fr 1fr 1fr 1fr 3fr; --pos:72%"><span class="seg-darkred seg-start"></span><span class="seg-red "></span><span class="seg-orange "></span><span class="seg-yellow "></span><span class="seg-lightgreen "></span><span class="seg-green seg-end"></span><i class="range-marker"></i></div>
+                <div class="range-legend" style="--cols:6"><span>&lt;30%</span><span>30-40%</span><span>40-50%</span><span>50-60%</span><span>60-70%</span><span>&gt;70%</span></div>
+                <div class="score-meta">上涨比例 60.2%｜覆盖 503/503</div>
+              </div>
+              <div class="score-pill">14 / 18</div>
+            </div><div class="score-row">
+              <div><strong class="score-name">SPY / RSP Ratio <i class="help-tip" data-tip="SPY/RSP Ratio 使用两只 ETF 的收盘价比值。比率高于并继续远离 20 日均值，表示市值权重股相对占优；比率下降表示等权成分扩散。">?</i></strong><span>权重 12</span></div>
+              <div>
+                <div class="segbar" style="--segments:3fr 3fr 4fr 3fr 3fr 3fr; --pos:78%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-red "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="range-legend" style="--cols:6"><span>≤-1.0%</span><span>-1.0~-0.25%</span><span>-0.25~0.25%</span><span>0.25~0.75%</span><span>0.75~1.50%</span><span>&gt;1.50%</span></div>
+                <div class="score-meta">Ratio 3.514x｜20日偏离 +0.85%｜明显集中</div>
+              </div>
+              <div class="score-pill">4 / 12</div>
+            </div><div class="score-row">
+              <div><strong class="score-name">US10Y <i class="help-tip" data-tip="10 年期美债收益率是估值折现率锚，收益率越高，对成长股估值压力通常越大。">?</i></strong><span>权重 16</span></div>
+              <div>
+                <div class="segbar" style="--segments:35fr 5fr 5fr 5fr 10fr; --pos:76%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="range-legend" style="--cols:5"><span>&lt;3.5%</span><span>3.5-4.0%</span><span>4.0-4.5%</span><span>4.5-5.0%</span><span>&gt;5.0%</span></div>
+                <div class="score-meta">4.77%｜偏高</div>
+              </div>
+              <div class="score-pill">5 / 16</div>
+            </div><div class="score-row">
+              <div><strong class="score-name">Sector Rotation <i class="help-tip" data-tip="Sector Rotation 使用进攻板块平均日收益减防御板块平均日收益连续评分，减少单纯排名造成的跳变。">?</i></strong><span>权重 6</span></div>
+              <div>
+                <div class="segbar" style="--segments:10fr 8fr 6fr 3fr 3fr; --pos:34%"><span class="seg-green seg-start"></span><span class="seg-lightgreen "></span><span class="seg-yellow "></span><span class="seg-orange "></span><span class="seg-darkred seg-end"></span><i class="range-marker"></i></div>
+                <div class="range-legend" style="--cols:5"><span>进攻强</span><span>偏进攻</span><span>均衡</span><span>偏防御</span><span>防御强</span></div>
+                <div class="score-meta">进攻-防御 +0.44 pct｜温和进攻</div>
+              </div>
+              <div class="score-pill">4 / 6</div>
+            </div></div>
+        <p class="note">评分区间：85-100 极度乐观，70-85 乐观，55-70 中性偏乐观，45-55 中性，30-45 谨慎，15-30 恐慌，0-15 极端恐慌。</p>
+      </details>
+    </section>
+    <section class="section">
+      <h2>数据质量与来源</h2>
+      <div class="validation-banner validation-warn">
+      <div><strong>自动异常检查：通过（有提醒）</strong><span>已检查 92 项数据规则</span></div>
+      <ul><li><b>商品与加密 待复核</b><span>最新可用结算/收盘为 2026-09-02, 2026-09-03；页面已按实际日期标注，不与股票收盘日混用。</span></li></ul>
+    </div>
+      <div class="quality-grid"><div class="quality-card">
+          <div><strong>核心行情</strong><span>Yahoo / StockAnalysis / AP</span></div>
+          <b class="quality-ok">已校验</b>
+          <small>2026-09-03｜37 组股票/ETF/利率行情日期检查</small>
+        </div><div class="quality-card">
+          <div><strong>Put/Call</strong><span>Cboe Current Market Statistics</span></div>
+          <b class="quality-ok">已确认</b>
+          <small>2026-09-03｜Total / Equity 日度比率；源更新时间 16:40 03/09/2026</small>
+        </div><div class="quality-card">
+          <div><strong>Market Breadth</strong><span>S&amp;P 500 / Yahoo</span></div>
+          <b class="quality-ok">已校验</b>
+          <small>2026-09-03｜覆盖 503/503</small>
+        </div><div class="quality-card">
+          <div><strong>美债收益率</strong><span>U.S. Treasury</span></div>
+          <b class="quality-ok">自动校验</b>
+          <small>2026-09-03｜1/2/10/30 年期均取官方每日收益率曲线，利差按同源序列计算</small>
+        </div><div class="quality-card">
+          <div><strong>商品与加密</strong><span>Yahoo Finance</span></div>
+          <b class="quality-warn">待复核</b>
+          <small>2026-09-03｜最新可用结算/收盘为 2026-09-02, 2026-09-03；页面已按实际日期标注，不与股票收盘日混用。</small>
+        </div></div>
+      <h3>数据来源</h3>
+      <p class="source-stamp">生成时间：2026-09-04T08:00+08:00｜市场数据截至：2026-09-03 收盘</p>
+      <ul class="sources"><li><a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Yahoo Finance：历史行情、VIX、商品与加密资产日线。</a></li><li><a href="https://stockanalysis.com/" target="_blank" rel="noopener noreferrer">StockAnalysis：股票及 ETF 最新完整交易日收盘备用行情。</a></li><li><a href="https://apnews.com/article/wall-street-stocks-dow-nasdaq-d2a114bce818cab6ee9583f4815cb89a" target="_blank" rel="noopener noreferrer">AP：四大指数正式收盘点位交叉校验。</a></li><li><a href="https://www.cboe.com/us/options/market_statistics/market/2026-09-03/" target="_blank" rel="noopener noreferrer">Cboe Current Market Statistics：2026-09-03 Total / Equity Put/Call Ratio。</a></li><li><a href="https://en.wikipedia.org/wiki/List_of_S%26P_500_companies" target="_blank" rel="noopener noreferrer">标普 500 成分股清单：Market Breadth 样本池。</a></li><li><a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve" target="_blank" rel="noopener noreferrer">U.S. Treasury：1/2/10/30 年期美债收益率采用官方每日收益率曲线。</a></li></ul>
+    </section>
+  </main>
+</body>
+</html>
