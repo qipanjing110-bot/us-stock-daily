@@ -2,62 +2,53 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="每日美股市场情绪、指数表现、行业轮动与 AI 产业链观察。">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>美股日报</title>
   <style>
-    :root { --ink:#11243a; --muted:#5f7184; --line:#d8e1ea; --paper:#ffffff; --ground:#f3f6f8; --teal:#0f766e; --navy:#102f46; }
-    * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); background:var(--ground); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
-    a { color:inherit; text-decoration:none; }
-    .wrap { width:min(1120px,calc(100% - 32px)); margin:0 auto; }
-    header { background:var(--navy); color:#fff; }
-    .brand { display:flex; align-items:center; gap:10px; min-height:66px; font-size:19px; font-weight:800; letter-spacing:0; }
-    .brand-mark { display:grid; place-items:center; width:31px; height:31px; border:1px solid #7ad2c6; color:#a9efe5; font-size:13px; }
-    main { padding:28px 0 48px; }
-    .kicker { margin:0 0 8px; color:var(--teal); font-size:14px; font-weight:800; }
-    h1 { margin:0; font-size:36px; line-height:1.2; letter-spacing:0; }
-    .intro { margin:10px 0 23px; color:var(--muted); font-size:16px; line-height:1.65; }
-    .report { border:1px solid var(--line); background:var(--paper); }
-    .report-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; padding:24px 20px; }
-    .report-head h2 { margin:0; font-size:22px; line-height:1.35; }
-    .report-head p { margin:4px 0 0; color:var(--muted); font-size:14px; }
-    .actions { display:flex; flex-wrap:wrap; gap:9px; justify-content:flex-end; }
-    .button { display:inline-flex; align-items:center; min-height:38px; padding:8px 12px; border:1px solid var(--teal); color:var(--teal); font-size:14px; font-weight:800; white-space:nowrap; }
-    .button.primary { background:var(--teal); color:#fff; }
-    .archive-section { margin-top:36px; }
-    .archive-section h2 { margin:0 0 12px; font-size:22px; }
-    .archive { display:grid; grid-template-columns:150px 1fr auto; align-items:center; gap:16px; padding:15px 18px; border:1px solid var(--line); border-bottom:0; background:var(--paper); }
-    .archive:last-child { border-bottom:1px solid var(--line); }
-    .archive:hover { background:#f7fbfb; }
-    .date { color:var(--teal); font-size:14px; font-weight:800; }
-    .archive-title { display:block; font-weight:800; }
-    .archive-note { display:block; margin-top:3px; color:var(--muted); font-size:13px; }
-    .arrow { color:var(--teal); font-size:20px; }
-    footer { border-top:1px solid var(--line); padding:22px 0 34px; color:var(--muted); font-size:13px; line-height:1.6; }
-    @media (max-width:680px) { .wrap { width:min(100% - 22px,1120px); } main { padding-top:20px; } h1 { font-size:30px; } .report-head { display:block; padding:16px; } .actions { justify-content:flex-start; margin-top:13px; } .archive { grid-template-columns:1fr auto; gap:8px; } .archive .date { grid-column:1 / -1; } }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; }
+    body { display:grid; grid-template-rows:auto minmax(0,1fr); height:100dvh; background:#f3f6f8; color:#17334a; font-family:system-ui,"Microsoft YaHei",sans-serif; letter-spacing:0; }
+    header { display:flex; align-items:center; flex-wrap:wrap; gap:12px 24px; padding:12px 24px; background:#fff; border-bottom:1px solid #d5dee7; }
+    .brand { color:#17334a; font-weight:750; font-size:20px; text-decoration:none; }
+    .date { color:#576979; font-size:14px; }
+    .history { margin-left:auto; display:flex; align-items:center; flex-wrap:wrap; gap:10px; font-size:14px; }
+    select { max-width:100%; min-height:40px; padding:6px 10px; border:1px solid #afbdc9; border-radius:4px; font:inherit; background:#fff; color:#17334a; }
+    a { color:#086e66; }
+    a:focus-visible, select:focus-visible { outline:3px solid #118779; outline-offset:3px; }
+    main { min-height:0; }
+    iframe { width:100%; height:100%; display:block; border:0; }
+    @media(max-width:600px) { header { padding:10px 12px; gap:8px; } .date { margin-left:auto; font-size:12px; } .history { margin:0; width:100%; } select { flex:1; min-width:0; width:180px; } }
   </style>
 </head>
 <body>
-  <header><div class="wrap"><a class="brand" href="index.html"><span class="brand-mark">US</span>美股日报</a></div></header>
-  <main class="wrap">
-    <p class="kicker">DAILY MARKET BRIEF</p>
-    <h1>美股日报</h1>
-    <p class="intro">每日市场情绪、指数表现、行业轮动与 AI 产业链观察。数据及内容仅供参考，不构成投资建议。</p>
-    <section class="report" aria-label="最新日报">
-      <div class="report-head">
-        <div><h2>最新一期：2026 年 09 月 05 日</h2><p>对应美东 09 月 04 日 收盘。点击进入完整日报。</p></div>
-        <div class="actions"><a class="button primary" href="美股日报-2026-09-05.html">阅读当日日报</a></div>
-      </div>
-    </section>
-    <section class="archive-section" aria-label="历史日报">
-      <h2>历史日报</h2>
-      <a class="archive" href="美股日报-2026-09-05.html"><span class="date">2026.09.05</span><span><span class="archive-title">美股日报</span><span class="archive-note">完整 HTML 版</span></span><span class="arrow">›</span></a>
-      <a class="archive" href="美股日报-2026-07-29.html"><span class="date">2026.07.29</span><span><span class="archive-title">美股日报</span><span class="archive-note">市场情绪、行业轮动与 AI 产业链观察</span></span><span class="arrow">›</span></a>
-      <a class="archive" href="美股日报-2026-07-28.html"><span class="date">2026.07.28</span><span><span class="archive-title">美股日报</span><span class="archive-note">市场摘要与重点资产表现</span></span><span class="arrow">›</span></a>
-      <a class="archive" href="美股日报-2026-07-25.html"><span class="date">2026.07.25</span><span><span class="archive-title">美股日报</span><span class="archive-note">市场摘要与重点资产表现</span></span><span class="arrow">›</span></a>
-    </section>
-  </main>
-  <footer><div class="wrap">美股日报 · 公开市场数据整理</div></footer>
+  <header>
+    <a class="brand" href="index.html">美股日报</a>
+    <span class="date" id="report-date">最新一期 2026-09-05</span>
+    <div class="history">
+      <label for="history-date">历史日报</label>
+      <select id="history-date"><option value="2026-09-05">2026-09-05 · 美东 2026-09-04 收盘</option><option value="2026-09-04">2026-09-04 · 美东 2026-09-03 收盘</option><option value="2026-09-03">2026-09-03 · 美东 2026-09-02 收盘</option><option value="2026-09-02">2026-09-02 · 美东 2026-09-01 收盘</option><option value="2026-09-01">2026-09-01 · 美东 2026-08-31 收盘</option><option value="2026-08-29">2026-08-29 · 美东 2026-08-28 收盘</option><option value="2026-08-28">2026-08-28 · 美东 2026-08-27 收盘</option><option value="2026-08-27">2026-08-27 · 美东 2026-08-26 收盘</option><option value="2026-08-26">2026-08-26 · 美东 2026-08-25 收盘</option><option value="2026-08-25">2026-08-25 · 美东 2026-08-24 收盘</option><option value="2026-08-22">2026-08-22 · 美东 2026-08-21 收盘</option><option value="2026-08-21">2026-08-21 · 美东 2026-08-20 收盘</option><option value="2026-08-20">2026-08-20 · 美东 2026-08-19 收盘</option><option value="2026-08-19">2026-08-19 · 美东 2026-08-18 收盘</option><option value="2026-08-18">2026-08-18 · 美东 2026-08-17 收盘</option><option value="2026-08-15">2026-08-15 · 美东 2026-08-14 收盘</option><option value="2026-08-14">2026-08-14 · 美东 2026-08-13 收盘</option><option value="2026-08-13">2026-08-13 · 美东 2026-08-12 收盘</option><option value="2026-08-12">2026-08-12 · 美东 2026-08-11 收盘</option><option value="2026-08-11">2026-08-11 · 美东 2026-08-10 收盘</option><option value="2026-08-10">2026-08-10 · 美东 2026-08-07 收盘</option><option value="2026-08-07">2026-08-07 · 美东 2026-08-06 收盘</option><option value="2026-08-06">2026-08-06 · 美东 2026-08-05 收盘</option><option value="2026-08-05">2026-08-05 · 美东 2026-08-04 收盘</option><option value="2026-08-04">2026-08-04 · 美东 2026-08-03 收盘</option><option value="2026-08-01">2026-08-01 · 美东 2026-07-31 收盘</option></select>
+      <a id="report-link" href="美股日报-2026-09-05.html" target="_blank" rel="noopener">单独打开</a>
+    </div>
+  </header>
+  <main><iframe id="report-frame" title="美股日报正文" src="美股日报-2026-09-05.html"></iframe></main>
+  <script type="application/json" id="report-catalog">[{"date": "2026-09-05", "market_date": "2026-09-04", "file": "美股日报-2026-09-05.html"}, {"date": "2026-09-04", "market_date": "2026-09-03", "file": "美股日报-2026-09-04.html"}, {"date": "2026-09-03", "market_date": "2026-09-02", "file": "美股日报-2026-09-03.html"}, {"date": "2026-09-02", "market_date": "2026-09-01", "file": "美股日报-2026-09-02.html"}, {"date": "2026-09-01", "market_date": "2026-08-31", "file": "美股日报-2026-09-01.html"}, {"date": "2026-08-29", "market_date": "2026-08-28", "file": "美股日报-2026-08-29.html"}, {"date": "2026-08-28", "market_date": "2026-08-27", "file": "美股日报-2026-08-28.html"}, {"date": "2026-08-27", "market_date": "2026-08-26", "file": "美股日报-2026-08-27.html"}, {"date": "2026-08-26", "market_date": "2026-08-25", "file": "美股日报-2026-08-26.html"}, {"date": "2026-08-25", "market_date": "2026-08-24", "file": "美股日报-2026-08-25.html"}, {"date": "2026-08-22", "market_date": "2026-08-21", "file": "美股日报-2026-08-22.html"}, {"date": "2026-08-21", "market_date": "2026-08-20", "file": "美股日报-2026-08-21.html"}, {"date": "2026-08-20", "market_date": "2026-08-19", "file": "美股日报-2026-08-20.html"}, {"date": "2026-08-19", "market_date": "2026-08-18", "file": "美股日报-2026-08-19.html"}, {"date": "2026-08-18", "market_date": "2026-08-17", "file": "美股日报-2026-08-18.html"}, {"date": "2026-08-15", "market_date": "2026-08-14", "file": "美股日报-2026-08-15.html"}, {"date": "2026-08-14", "market_date": "2026-08-13", "file": "美股日报-2026-08-14.html"}, {"date": "2026-08-13", "market_date": "2026-08-12", "file": "美股日报-2026-08-13.html"}, {"date": "2026-08-12", "market_date": "2026-08-11", "file": "美股日报-2026-08-12.html"}, {"date": "2026-08-11", "market_date": "2026-08-10", "file": "美股日报-2026-08-11.html"}, {"date": "2026-08-10", "market_date": "2026-08-07", "file": "美股日报-2026-08-10.html"}, {"date": "2026-08-07", "market_date": "2026-08-06", "file": "美股日报-2026-08-07.html"}, {"date": "2026-08-06", "market_date": "2026-08-05", "file": "美股日报-2026-08-06.html"}, {"date": "2026-08-05", "market_date": "2026-08-04", "file": "美股日报-2026-08-05.html"}, {"date": "2026-08-04", "market_date": "2026-08-03", "file": "美股日报-2026-08-04.html"}, {"date": "2026-08-01", "market_date": "2026-07-31", "file": "美股日报-2026-08-01.html"}]</script>
+  <script>
+    const reports = JSON.parse(document.getElementById('report-catalog').textContent);
+    const picker = document.getElementById('history-date');
+    function showReport(day) {
+      const report = reports.find(item => item.date === day) || reports[0];
+      picker.value = report.date;
+      document.getElementById('report-frame').src = report.file;
+      document.getElementById('report-link').href = report.file;
+      document.getElementById('report-date').textContent = (report === reports[0] ? '最新一期 ' : '历史日报 ') + report.date;
+      document.title = '美股日报 · ' + report.date;
+    }
+    picker.addEventListener('change', () => {
+      history.replaceState(null, '', '#date=' + picker.value);
+      showReport(picker.value);
+    });
+    window.addEventListener('hashchange', () => showReport(location.hash.slice(6)));
+    showReport(location.hash.startsWith('#date=') ? location.hash.slice(6) : reports[0].date);
+  </script>
 </body>
 </html>
