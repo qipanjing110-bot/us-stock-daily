@@ -1,0 +1,738 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美股日报：科技成长承压，防御板块接力</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #64748b;
+      --line: #d9e2ec;
+      --panel: #ffffff;
+      --page: #f4f7f9;
+      --navy: #16324f;
+      --teal: #0f766e;
+      --red: #b42318;
+      --green: #067647;
+      --amber: #b54708;
+      --soft-blue: #eaf2fb;
+      --soft-teal: #e7f5f2;
+      --soft-red: #fdecec;
+      --soft-green: #eaf7ef;
+      --soft-amber: #fff3df;
+      --shadow: 0 18px 45px rgba(24, 39, 75, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.68;
+    }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background: linear-gradient(135deg, #16324f 0%, #1f5f6f 54%, #315f72 100%);
+      border-radius: 8px;
+      padding: 42px 36px 38px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      letter-spacing: 0;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    h1 {
+      margin: 20px 0 10px;
+      font-size: clamp(46px, 7vw, 72px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 22px;
+      line-height: 1.45;
+    }
+
+    .down {
+      color: #ffd6d2;
+    }
+
+    .up {
+      color: #b8f3d0;
+    }
+
+    .section {
+      margin-top: 22px;
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 10px 30px rgba(24, 39, 75, 0.04);
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      color: var(--navy);
+      font-size: 24px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .section h3 {
+      margin: 24px 0 10px;
+      color: #27445f;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 0;
+      padding: 18px 20px;
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      background: var(--soft-teal);
+      font-size: 18px;
+      font-weight: 650;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .lead + .summary {
+      margin-top: 16px;
+    }
+
+    .summary.compact {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .judgement {
+      margin: 16px 0 0;
+      padding: 14px 16px;
+      border: 1px solid #b7ddd5;
+      border-radius: 8px;
+      background: #f1faf8;
+      color: #155e54;
+      font-weight: 750;
+    }
+
+    .summary li {
+      min-height: 138px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--soft-blue);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 4px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14px;
+    }
+
+    th {
+      color: #415a77;
+      background: #eef4f8;
+      font-weight: 750;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td.num,
+    th.num {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .loss {
+      color: var(--red);
+      font-weight: 800;
+    }
+
+    .gain {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .neutral {
+      color: var(--amber);
+      font-weight: 800;
+    }
+
+    .rank-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .table-label {
+      margin: 0 0 8px;
+      color: #27445f;
+      font-size: 16px;
+      font-weight: 750;
+    }
+
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .analysis-card {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .analysis-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .analysis-card p {
+      margin: 0;
+      color: #415a77;
+      font-size: 14px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: 0.9fr 1.2fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .dashboard-score {
+      padding: 20px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #173b5c 0%, #1f6b72 100%);
+      color: #fff;
+    }
+
+    .dashboard-score span {
+      display: block;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .dashboard-score strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 22px;
+    }
+
+    .dashboard-score .stars {
+      color: #ffd166;
+      font-size: 30px;
+    }
+
+    .temperature-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .temperature-card,
+    .signal-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .temperature-card span,
+    .signal-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .temperature-card strong,
+    .signal-card strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 15px;
+    }
+
+    .dashboard-lower {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .sentiment-box {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .stars {
+      margin: 6px 0 4px;
+      color: var(--amber);
+      font-size: 26px;
+      letter-spacing: 0;
+      font-weight: 800;
+    }
+
+    .flow-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .flow-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .flow-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .chain-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0 14px;
+    }
+
+    .chain-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+    }
+
+    .chain-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chain-card strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 15px;
+    }
+
+    .winner-loser {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .insight {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--amber);
+      border-radius: 8px;
+      background: var(--soft-amber);
+      color: #573b13;
+      font-weight: 700;
+    }
+
+    .note {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .bullets {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .bullets li {
+      margin: 8px 0;
+    }
+
+    .sources {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .sources li {
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdff;
+      color: #415a77;
+      font-size: 14px;
+    }
+
+    .disclaimer {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 920px) {
+      .summary,
+      .summary.compact,
+      .rank-grid,
+      .analysis-grid,
+      .dashboard,
+      .temperature-grid,
+      .dashboard-lower,
+      .signal-grid,
+      .chain-grid,
+      .winner-loser,
+      .sources {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 12px 36px;
+      }
+
+      .hero,
+      .section {
+        padding: 20px;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="eyebrow">美东时间 2026 年 7 月 7 日</div>
+      <h1>美股日报</h1>
+      <p class="subtitle">科技成长承压，防御板块接力，市场风险偏好降温</p>
+    </header>
+
+    <section class="section">
+      <h2>核心摘要</h2>
+      <p class="lead">今日结论：成长股遭遇获利回吐，资金由 AI 科技转向能源和防御板块。</p>
+      <ul class="summary compact">
+        <li><span class="tag">原因一</span>油价上涨，能源板块成为最清晰的资金承接方向。</li>
+        <li><span class="tag">原因二</span>长端利率反弹，成长股估值压力重新上升。</li>
+        <li><span class="tag">原因三</span>AI 硬件出现获利了结，半导体、存储和光模块普遍承压。</li>
+      </ul>
+      <p class="judgement">判断：市场仍属于正常轮动，而非趋势反转。</p>
+    </section>
+
+    <section class="section">
+      <h2>Market Sentiment Dashboard</h2>
+      <div class="dashboard">
+        <div class="dashboard-score">
+          <span>总体风险偏好</span>
+          <div class="stars">★★☆☆☆</div>
+          <strong>中性偏谨慎</strong>
+          <p>科技成长回调，能源与防御板块接力，市场仍是结构轮动而非恐慌。</p>
+        </div>
+        <div class="temperature-grid">
+          <div class="temperature-card"><span>VIX</span><strong class="neutral">16.13</strong><p class="note">较前日上升 3.60%，避险需求边际抬升。</p></div>
+          <div class="temperature-card"><span>Put/Call Ratio</span><strong class="neutral">偏谨慎</strong><p class="note">期权保护需求观察项，盘后口径待确认。</p></div>
+          <div class="temperature-card"><span>Market Breadth</span><strong class="neutral">分化</strong><p class="note">指数回落，但并非全面普跌，权重科技拖累更明显。</p></div>
+          <div class="temperature-card"><span>US10Y</span><strong class="loss">约 4.54%</strong><p class="note">长端利率上行，成长股估值承压。</p></div>
+          <div class="temperature-card"><span>Sector Rotation</span><strong class="gain">防御接力</strong><p class="note">能源、医疗、公用事业领先，信息技术承压。</p></div>
+        </div>
+      </div>
+      <div class="dashboard-lower">
+        <div class="sentiment-box">
+          <strong>指标解读</strong>
+          <ul class="flow-list">
+            <li><span>VIX</span><b class="neutral">波动率温和抬升</b></li>
+            <li><span>Put/Call Ratio</span><b class="neutral">保护性需求观察</b></li>
+            <li><span>Market Breadth</span><b class="neutral">结构分化</b></li>
+            <li><span>US10Y</span><b class="loss">估值压力上升</b></li>
+            <li><span>Sector Rotation</span><b class="gain">防御和能源占优</b></li>
+          </ul>
+        </div>
+        <div class="sentiment-box">
+          <strong>资金含义</strong>
+          <div class="signal-grid">
+            <div class="signal-card"><span>流入</span><strong class="gain">能源</strong></div>
+            <div class="signal-card"><span>流入</span><strong class="gain">医疗</strong></div>
+            <div class="signal-card"><span>流入</span><strong class="gain">公用事业</strong></div>
+            <div class="signal-card"><span>流出</span><strong class="loss">AI 硬件</strong></div>
+            <div class="signal-card"><span>流出</span><strong class="loss">光模块</strong></div>
+          </div>
+        </div>
+      </div>
+      <p class="insight">市场含义：VIX 上行、US10Y 走高和板块轮动共同指向风险偏好降温；但 Market Breadth 并未显示全面恐慌，当前更像高估值成长股获利回吐后的结构性轮动。</p>
+    </section>
+
+    <section class="section">
+      <h2>市场概览</h2>
+
+      <h3>指数</h3>
+      <table>
+        <thead>
+          <tr><th>资产</th><th class="num">7 月 7 日收盘</th><th class="num">当日表现</th><th>解读</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>道琼斯工业平均指数</td><td class="num">52,925.15</td><td class="num loss">-0.2%</td><td>早盘一度走强后回落，蓝筹韧性强于科技权重</td></tr>
+          <tr><td>标普 500</td><td class="num">7,503.85</td><td class="num loss">-0.4%</td><td>多数成分股并未同步大跌，但权重科技拖累指数</td></tr>
+          <tr><td>纳斯达克综合指数</td><td class="num">25,818.69</td><td class="num loss">-1.2%</td><td>AI、半导体和大型科技承压，科技股成为主要拖累</td></tr>
+          <tr><td>罗素 2000</td><td class="num">2,982.49</td><td class="num loss">-0.9%</td><td>小盘股跟随风险偏好降温，表现弱于道指</td></tr>
+        </tbody>
+      </table>
+
+      <h3>板块轮动与风格</h3>
+      <table>
+        <thead>
+          <tr><th>方向</th><th>代表板块</th><th class="num">表现</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>资源与防御占优</td><td>能源、医疗保健、房地产、公用事业、必需消费</td><td class="num gain">领涨</td></tr>
+          <tr><td>科技成长承压</td><td>信息技术、可选消费、通信服务</td><td class="num neutral">分化偏弱</td></tr>
+          <tr><td>周期板块分化</td><td>金融、材料、工业</td><td class="num loss">偏弱</td></tr>
+        </tbody>
+      </table>
+
+      <h3>标普 500 板块涨跌排名</h3>
+      <div class="rank-grid">
+        <div>
+          <p class="table-label">涨幅前五</p>
+          <table>
+            <thead>
+              <tr><th class="num">排名</th><th>板块</th><th>ETF</th><th class="num">涨跌幅</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">1</td><td>能源</td><td>XLE</td><td class="num gain">+2.84%</td></tr>
+              <tr><td class="num">2</td><td>医疗保健</td><td>XLV</td><td class="num gain">+1.53%</td></tr>
+              <tr><td class="num">3</td><td>房地产</td><td>XLRE</td><td class="num gain">+1.35%</td></tr>
+              <tr><td class="num">4</td><td>必需消费</td><td>XLP</td><td class="num gain">+0.90%</td></tr>
+              <tr><td class="num">5</td><td>公用事业</td><td>XLU</td><td class="num gain">+0.88%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p class="table-label">跌幅前五</p>
+          <table>
+            <thead>
+              <tr><th class="num">排名</th><th>板块</th><th>ETF</th><th class="num">涨跌幅</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="num">1</td><td>信息技术</td><td>XLK</td><td class="num loss">-2.39%</td></tr>
+              <tr><td class="num">2</td><td>工业</td><td>XLI</td><td class="num loss">-1.71%</td></tr>
+              <tr><td class="num">3</td><td>材料</td><td>XLB</td><td class="num loss">-0.90%</td></tr>
+              <tr><td class="num">4</td><td>可选消费</td><td>XLY</td><td class="num loss">-0.53%</td></tr>
+              <tr><td class="num">5</td><td>金融</td><td>XLF</td><td class="num loss">-0.16%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note">注：板块涨跌幅采用 Select Sector SPDR ETF 作为标普 500 行业板块代理，按 2026 年 7 月 6 日收盘至 7 月 7 日收盘计算。ETF 代理口径与标普 500 GICS 行业指数可能存在细微差异。</p>
+
+      <h3>今日市场驱动</h3>
+      <div class="analysis-grid">
+        <div class="analysis-card"><strong>油价上涨</strong><p>供给风险重新定价，能源股逆势走强。</p></div>
+        <div class="analysis-card"><strong>10Y 美债收益率上行</strong><p>长端利率回到压力位，成长股估值承压。</p></div>
+        <div class="analysis-card"><strong>AI 硬件获利回吐</strong><p>半导体、存储和光模块回调，拖累纳指表现。</p></div>
+      </div>
+
+      <h3>AI 产业链代表股票表现</h3>
+      <div class="chain-grid">
+        <div class="chain-card"><span>GPU</span><strong class="neutral">中性偏强</strong></div>
+        <div class="chain-card"><span>Memory</span><strong class="loss">弱</strong></div>
+        <div class="chain-card"><span>Optical</span><strong class="loss">弱</strong></div>
+        <div class="chain-card"><span>Cloud Platform</span><strong class="gain">偏强</strong></div>
+        <div class="chain-card"><span>AI Software</span><strong class="gain">偏强</strong></div>
+      </div>
+      <table>
+        <thead>
+          <tr><th>环节</th><th>代表股票</th><th class="num">7 月 7 日收盘</th><th class="num">当日表现</th><th>解读</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>AI 芯片</td><td>NVIDIA（NVDA）</td><td class="num">196.93</td><td class="num gain">+0.71%</td><td>核心算力龙头相对抗跌，表现强于半导体板块整体</td></tr>
+          <tr><td>AI 芯片</td><td>AMD（AMD）</td><td class="num">516.11</td><td class="num loss">-6.51%</td><td>高弹性芯片股大幅回调，反映 AI 交易分化加剧</td></tr>
+          <tr><td>晶圆代工</td><td>台积电 ADR（TSM）</td><td class="num">432.57</td><td class="num loss">-4.25%</td><td>代工链跟随半导体风险偏好回落</td></tr>
+          <tr><td>存储</td><td>Micron（MU）</td><td class="num">938.38</td><td class="num loss">-4.71%</td><td>存储链继续承压，波动高于大盘</td></tr>
+          <tr><td>存储</td><td>SanDisk（SNDK）</td><td class="num">1,617.70</td><td class="num loss">-7.26%</td><td>存储链高弹性标的回调更深</td></tr>
+          <tr><td>光模块/光通信</td><td>Coherent（COHR）</td><td class="num">314.13</td><td class="num loss">-6.43%</td><td>光通信链条回调，AI 数据中心交易降温</td></tr>
+          <tr><td>光模块/光通信</td><td>Lumentum（LITE）</td><td class="num">698.91</td><td class="num loss">-4.42%</td><td>光器件方向承压，走势弱于大盘</td></tr>
+          <tr><td>云与 AI 平台</td><td>Microsoft（MSFT）</td><td class="num">388.84</td><td class="num gain">+0.54%</td><td>云和企业 AI 方向相对稳健</td></tr>
+          <tr><td>云与 AI 平台</td><td>Alphabet（GOOGL）</td><td class="num">367.03</td><td class="num gain">+0.16%</td><td>搜索和云平台股小幅上涨，表现好于纳指</td></tr>
+          <tr><td>云与 AI 平台</td><td>Amazon（AMZN）</td><td class="num">245.98</td><td class="num gain">+0.75%</td><td>云业务相关权重股相对抗跌</td></tr>
+          <tr><td>AI 应用/广告</td><td>Meta（META）</td><td class="num">615.58</td><td class="num gain">+2.55%</td><td>平台股逆势走强，显示 AI 交易并非全面退潮</td></tr>
+          <tr><td>AI 应用/软件</td><td>Palantir（PLTR）</td><td class="num">134.37</td><td class="num gain">+1.38%</td><td>AI 软件方向逆势上涨</td></tr>
+        </tbody>
+      </table>
+      <p class="note">注：AI 产业链代表股票为观察样本，不覆盖全部相关公司；涨跌幅按 Yahoo Finance 2026 年 7 月 6 日收盘至 7 月 7 日收盘计算。</p>
+
+      <h3>今日赢家/输家</h3>
+      <div class="winner-loser">
+        <div>
+          <p class="table-label">相对赢家</p>
+          <table>
+            <thead>
+              <tr><th>股票</th><th class="num">表现</th><th>原因</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Meta（META）</td><td class="num gain">+2.55%</td><td>平台股逆势走强，AI 交易并非全面退潮</td></tr>
+              <tr><td>Palantir（PLTR）</td><td class="num gain">+1.38%</td><td>AI 软件方向获得资金承接</td></tr>
+              <tr><td>NVIDIA（NVDA）</td><td class="num gain">+0.71%</td><td>核心算力龙头相对抗跌</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p class="table-label">主要输家</p>
+          <table>
+            <thead>
+              <tr><th>股票</th><th class="num">表现</th><th>原因</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>SanDisk（SNDK）</td><td class="num loss">-7.26%</td><td>存储链获利回吐更明显</td></tr>
+              <tr><td>AMD（AMD）</td><td class="num loss">-6.51%</td><td>高弹性芯片股回调</td></tr>
+              <tr><td>Coherent（COHR）</td><td class="num loss">-6.43%</td><td>光模块链条跟随 AI 硬件降温</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <h3>美债美元</h3>
+      <table>
+        <thead>
+          <tr><th>资产</th><th class="num">7 月 7 日水平</th><th class="num">当日表现</th><th>解读</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10 年期美债收益率</td><td class="num">约 4.54%</td><td class="num neutral">上行</td><td>油价跳升和伊朗相关风险推高通胀担忧，长端利率承压</td></tr>
+          <tr><td>30 年期美债收益率</td><td class="num">约 5.01%</td><td class="num neutral">上行</td><td>长端重新站上 5%附近，反映通胀预期和期限溢价压力</td></tr>
+          <tr><td>美元指数</td><td class="num">大体持稳</td><td class="num">波动有限</td><td>地缘风险提供一定支撑，但市场焦点更多集中在油价和利率</td></tr>
+        </tbody>
+      </table>
+
+      <h3>商品与加密资产</h3>
+      <table>
+        <thead>
+          <tr><th>资产</th><th class="num">7 月 7 日水平</th><th class="num">当日表现</th><th>解读</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>COMEX 黄金</td><td class="num">4,145.30 美元/盎司</td><td class="num loss">-0.2%</td><td>三日连涨后回落，市场等待 Fed 会议纪要和通胀线索</td></tr>
+          <tr><td>WTI 原油</td><td class="num">约 72 美元/桶</td><td class="num gain">明显上涨</td><td>伊朗相关风险升温，美国撤销伊朗石油制裁豁免，供给风险重新定价</td></tr>
+          <tr><td>Brent 原油</td><td class="num">约 75.6 美元/桶</td><td class="num gain">明显上涨</td><td>中东供给风险抬升，油价盘后进一步走强</td></tr>
+          <tr><td>COMEX 铜</td><td class="num">约 6.17 美元/磅</td><td class="num loss">-0.11%</td><td>工业金属小幅回落，增长预期和美元走势仍是主要变量</td></tr>
+          <tr><td>比特币</td><td class="num">约 63,297 美元</td><td class="num loss">-1.09%</td><td>风险资产降温背景下回落，走势弱于防御板块</td></tr>
+          <tr><td>以太坊</td><td class="num">约 1,769 美元</td><td class="num loss">-1.62%</td><td>加密资产随高波动风险偏好走弱</td></tr>
+        </tbody>
+      </table>
+      <p class="note">注：指数收盘来自 AP 对 2026 年 7 月 7 日美股表现的统计；美债、黄金和原油来自 MarketWatch、WSJ/Dow Jones Market Data 与 Barron's 当日市场报道；铜、比特币和以太坊采用 Yahoo Finance 7 月 6 日至 7 月 7 日历史行情计算。不同数据源在盘中、结算价和盘后报价上可能存在差异。</p>
+    </section>
+
+    <section class="section">
+      <h2>宏观与政策</h2>
+      <h3>Fed 预期</h3>
+      <p>今天市场的焦点转向 7 月 8 日公布的 FOMC 会议纪要。上周公布的 6 月就业数据提示劳动力需求降温，但油价上行和长端利率走高使通胀风险重新进入视野，削弱了弱就业数据带来的部分宽松想象。Fed 后续沟通的核心仍是：通胀回落速度是否足以支持停止紧缩，还是油价和服务通胀会迫使政策维持更久的限制性水平。</p>
+      <h3>地缘与通胀</h3>
+      <p>伊朗相关风险是今天资产价格联动的关键。油价上冲带动美债收益率上行，进而压制科技股估值。若中东局势继续升温，市场可能重新交易“油价上涨、通胀预期抬升、利率上行、成长股承压”的链条。</p>
+    </section>
+
+    <section class="section">
+      <h2>明日关注与操作思考</h2>
+      <ul class="bullets">
+        <li>原油价格：若供给风险继续升温，能源板块可能延续相对强势。</li>
+        <li>美债收益率：10 年期收益率若持续站上 4.5%附近，成长股估值压力可能延续。</li>
+        <li>FOMC 会议纪要：重点观察 Fed 内部对通胀、能源价格、就业放缓和后续加息路径的讨论。</li>
+        <li>AI 龙头走势：关注芯片、存储和光模块是否止跌，以及 AI 软件能否维持相对强势。</li>
+      </ul>
+      <div class="insight">操作思考：若 10Y 收益率继续上行，成长股估值仍承压；若利率企稳，AI 板块可能出现技术性修复。</div>
+      <h3>一句话投资启示</h3>
+      <p class="lead">成长股进入震荡阶段，资金向能源和防御板块轮动，重点观察 AI 软件相对强势、能源趋势延续和长端利率变化。</p>
+    </section>
+
+    <section class="section">
+      <h2>数据来源</h2>
+      <ul class="sources">
+        <li>AP：How major US stock indexes fared Tuesday 7/7/2026。</li>
+        <li>MarketWatch：7 月 7 日美股收盘、半导体回调、油价和美债收益率相关市场报道。</li>
+        <li>WSJ/Dow Jones Market Data：7 月 7 日 COMEX 黄金结算、美债收益率和能源市场报道。</li>
+        <li>Barron's：7 月 7 日美债收益率、伊朗相关风险和油价跳升报道。</li>
+        <li>Yahoo Finance：VIX、Select Sector SPDR ETF、AI 产业链代表股票、铜、比特币和以太坊 2026 年 7 月 6 日和 7 月 7 日历史行情。</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
